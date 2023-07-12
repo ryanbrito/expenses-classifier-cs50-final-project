@@ -1,0 +1,119 @@
+/* Size for brand */
+nav .navbar-brand
+{
+    font-size: xx-large;
+}
+
+.navbar-custom {
+    background-color: lightgreen;
+}
+
+/*This css file is devided in two parts, one for mobile visualization and other for pcs*/
+@media screen and (min-width: 1001px){
+    #titleHead{
+        margin-top: 10px;
+        margin: auto;
+        font-size: 8vw;
+    }
+
+    #titleP{
+        font-size: 8vw;
+    }
+
+    /*__________________________Login page style___________________________*/
+    #loginBody{
+        /*Image reference: https://www.pexels.com/photo/close-up-photo-of-gray-laptop-577210/ */
+        background-image: url("pexels-lukas-577210.jpg");
+        background-size: 100%;
+        opacity: 1;
+    }
+
+    #logHead{
+        font-size: 8vw;
+        color:white;
+        margin-bottom: 0;
+    }
+
+    #footer{
+        position: absolute;
+        bottom: 0;
+        left: 42%;
+    }
+
+    #send{
+        margin-top: 2px;
+    }
+
+    input[type=password]{
+        border-radius: 5px;
+        box-sizing: border-box;
+        border: 3px solid #ccc;
+        outline: none;
+    }
+
+    input[type=password]:focus{
+        border: solid green 3px;
+    }
+
+    input[type=text]{
+        border-radius: 5px;
+        box-sizing: border-box;
+        border: 3px solid #ccc;
+        outline: none;
+    }
+
+    input[type=text]:focus{
+        border: solid green 3px;
+    }
+
+    #logRegInput{
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
+
+    /*____________________ Loading Screen _____________________*/
+    /*Makes background darker for focus on loading screen*/
+    .Coverlay{
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0,0.7);
+    }
+
+    .wraped{
+        background-image: linear-gradient(to bottom, rgb(255,255,255) 0%, rgb(255,255,255) 100%), linear-gradient(to bottom, rgb(255,255,255) 0%, rgb(255,255,255) 100%);
+        max-width: 400px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        padding: 20px;
+        background-clip: content-box, padding-box;
+        margin-top: 100px;
+        border: 2px solid black;
+        border-radius: 5px;
+        position: fixed;
+    }
+
+    #loading{
+        width:25px;
+        height:25px;
+    }
+
+    #titleDash{
+        font-size: 5vw;
+        padding-bottom: 0%;
+        margin-bottom: 0%;
+    }
+
+    #buttonList{
+        padding-right: 90%; 
+        margin-bottom: 2px; 
+        border: 2px solid grey;
+    }
+}
+
+
+@media screen and (max-width: 1000px){
+
+}

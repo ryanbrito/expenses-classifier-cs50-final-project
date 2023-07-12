@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Upload
+{% endblock %}
+
+{% block main %}
+    <head id="titleHead">
+        <p id="titleP"><b><u>Upload:</u></b></p>
+    </head>
+
+    <div>
+        <p>
+            In this section you can upload your Excel file for budget categorization and analysis of the website. <br>
+            Remember that: Only excel files are accepted.
+        </p>
+    </div>
+
+<div style="border: solid black 2px; border-radius: 10px;">
+    <br>
+
+    <!-- Learned how to submit files in: https://www.geeksforgeeks.org/how-to-upload-file-in-python-flask/ -->
+    <form action = "/upload" method = "post" enctype="multipart/form-data">
+
+        <input type="text" name="name" style="margin:auto; width: 90%; margin-bottom: 2px;"  placeholder="Name or Period of expenses (having more than 2 digits)"/>
+        <input type="file" name="file" style="margin:auto; width: 90%;" class="form-control"/>
+        
+        <!-- Jinja sintax, used to upload an error message in the website if one happens to ocurr, like not a valid file;-->
+        {% if placeholder == 1 %}
+            <br>
+            <script type="text/javascript">alert("Not a valid file type or incorrectly formatted. Please, enter other one.");</script>
+            <p style="color: red;">Not a valid file type or incorrectly formatted. Please, enter other one.</p>
+        {% elif placeholder == 2 %}
+            <br>
+            <script type="text/javascript">alert("Not a valid name or already used. Please, enter other one.");</script>
+            <p style="color: red;">Not a valid name or already used. Please, enter other one.</p>
+        {% else %}
+                {{ data }}
+        {% endif %}
+        <input type = "submit" value="Upload" onclick="loadingScreen()" class="btn btn-primary" style="margin:auto; margin-top: 5px; margin-bottom: 5px;">
+
+    </form>
+
+</div>
+
+<!-- Loading Overlay that shows the user that the data is being processed-->
+<div class="resizable_text">
+    <div id="theOverlay" class="Coverlay">
+      <div class="wraped">
+        <p>Processing Data.</p>
+        <span >
+            <img id="loading" src="/static/loading-gif-png.gif" alt="">
+        </span>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

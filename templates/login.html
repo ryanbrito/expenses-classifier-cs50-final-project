@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+{% block main %}
+
+    <!-- Overlay that prompts the user for username and password for login -->
+      <div class="resizable_text" id="overlay">
+        <div id="myOverlay">
+          <div>
+            <p id="logHead"><b><u>Login:</u></b></p>
+            <form action="/login" method="POST" autocomplete="off">
+              <input id="logRegInput" type="text" name="username" placeholder="Username:"> <br>
+              <input id="logRegInput" type="password" name="password" placeholder="Password:"> <br>
+                {% if apology %}
+                  <p style="color: red;">{{ apology }}</p>
+                {% endif %}
+              <input type="submit" value="Log in" class="btn btn-success" id="send">
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div id="footer">
+        <footer class="mb-5 small text-center text-muted">
+            |Ryan's CS50x 2023 Final Project|
+        </footer>
+      </div>
+
+{% endblock %}
