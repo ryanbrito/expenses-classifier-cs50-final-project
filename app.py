@@ -259,7 +259,6 @@ def dashboard():
         plt.savefig(imageFile)
         
         return render_template("dashboard.html", tableName=tableName, data=imageFile, source=imageFile)
-        
          
     
     else:
