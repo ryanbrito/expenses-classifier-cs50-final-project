@@ -11,9 +11,23 @@
         </p>
     </head>
 
+    <!-- Graph of total expense per categorie:-->
     <img id="graph" src={{source}} alt="">
 
     <br><br>{{data}}
+
+    <!-- Table where the user can manually edit the category of his/her expenses: -->
+    <div >
+        <table id="tables">
+            <tr>
+                <td>ID:</td>
+                <td>Expense:</td>
+                <td>Cost:</td>
+                <td>Category:</td>
+            </tr>
+        </table>
+    </div>
+    
 
     <form method="post" action="/delete-user">
         <br><input type="submit" name="delete" value="Delete Account">

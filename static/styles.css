@@ -120,6 +120,11 @@ nav .navbar-brand
         width: 110%;
         height: 400px;
     }
+
+    #tables{
+        border: 1px solid black;
+        margin: auto;
+    }
 }
 
 
