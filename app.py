@@ -235,10 +235,12 @@ def dashboard():
         categoriesEdit = treatCategories(categories)
 
         # Makes graph resizable based on how many categories it has so that the user can have a better visualization
-        if len(category) >= 10:
-            plt.figure(figsize = (35, 5)) 
-        else:
-            plt.figure(figsize = (20, 5))
+        for category in categories:
+            if len(category) >= 10:
+                plt.figure(figsize = (35, 5)) 
+                break
+            else:
+                plt.figure(figsize = (20, 5))
 
         # Sets the labels:
         plt.rcParams.update({'font.size': 14})
@@ -253,10 +255,25 @@ def dashboard():
 
         '''______________________Edit Table_______________________'''
         # Creation of table where the user can manually edit the category of his/her expenses:
+
+        # All the user's personalCategories
         personal = personalCategories(username)
 
+        # Converts the current table to a list
+        tableRows = []
+        database = ("sqlite:///" + "usersDatabases/" + username + ".db")
+        database = SQL(database)
+        # Gets all the data from the desired table
+        table = database.execute(
+        "SELECT * FROM ?;", tableName
+        )
+
+        # Aesthetics: Put spaces between words, and converts the cost of each expense to dollar;
+        for row in table:
+            row['category'] = (treatCategories([row['category']]))[0]
+            row['value'] = '${:,.2f}'.format(row['value'])
         
-        return render_template("dashboard.html", tableName=tableName, source=imageFile, data=personal)
+        return render_template("dashboard.html", tableName=tableName, source=imageFile, table=table)
          
 
     else:

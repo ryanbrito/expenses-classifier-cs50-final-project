@@ -14,17 +14,28 @@
     <!-- Graph of total expense per categorie:-->
     <img id="graph" src={{source}} alt="">
 
-    <br><br>{{data}}
-
     <!-- Table where the user can manually edit the category of his/her expenses: -->
+    <br>
     <div >
-        <table id="tables">
-            <tr>
-                <td>ID:</td>
-                <td>Expense:</td>
-                <td>Cost:</td>
-                <td>Category:</td>
-            </tr>
+        <table class="table table-striped" style="margin: auto; width: 90%" id="tables">
+            <thead style="background-color: #36bb7b;">
+                <tr>
+                    <th scope="col">ID:</th>
+                    <th scope="col">Expense:</th>
+                    <th scope="col">Cost:</th>
+                    <th scope="col">Category:</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in table %}
+                    <tr>   
+                        <td>{{row['id']}}</td>
+                        <td>{{row['expense']}}</td>
+                        <td>{{row['value']}}</td>
+                        <td>{{row['category']}}</td>
+                    </tr>
+                {%  endfor %}
+            </tbody>
         </table>
     </div>
     

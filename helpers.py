@@ -54,7 +54,7 @@ def createDefaultTable():
                     {"SavingInvestingPayments": [ 'coin', 'purchases', 'fare', 'payback', 'outpayment', 'prepayment', 'paymeter', 'pay-off', 'tollage', 'rental', 'cash', 'money', 'deposit', 'underpayment', 'card', 'charge', 'billing','settling', 'disbursement', 'stipend', 'billpaying',  'dividend', 'settlement', 'paycheck', 'acquittance', 'invoice', 'paycheque', 'paytech', 'credit', 'disbursal', 'recompensation', 'paypal', 'loan', 'bills', 'remittance', 'expenditure', 'acquittal', 'cheque', 'consideration', 'paying', 'payout', 'payroll', 'fees', 'nonpayment', 'copay', 'changing', 'arrearage', 'wage', 'warrant', 'debts', 'payer', 'taxpayment', 'payee', 'receipt', 'biling', 'counter-payment', 'overpayment', 'defrayal', 'refund', 'rediscounting', 'remuneration', 'payoff', 'imbursement', 'defrayment', 'payable', 'advancement', 'inpayment', 'payment', 'debit', 'contribution', 'reimbursement', 'pay-out', 'repayment', 'pay', 'counterpayment', 'check', 'dues', 'counter', 'transaction', 'rebate','investee', 'business', 'spending', 'owning', 'divesting', 'purchasing', 'appreciating', 'buying', 'investible', 'entrepreneuring', 'banking', 'profiting', 'trading', 'selling', 'saving', 'investors', 'value', 'stakeholding', 'reselling', 'acquiring', 'revenue', 'overinvesting', 'funding', 'liquidating',  'allocating', 'procuring', 'capital', 'reinvestment', 'financing', 'wealthmaking', 'profit',  'economizing', 'investment', 'reallocating', 'stocks', 'coinvestment', 'stockbroking','money-making', 'renting', 'fund', 'underinvest', 'disinvesting', 'diversifying', 'earnings', 'evaluating']},
                     {"PersonalSpending": ["personal", 'hair', 'haircut', 'beard', 'gym', 'fitness', 'exercise','athletics', 'decor', 'decoration']},
                     {"RecreationEntertainment": ['drama', 'actor', 'sports', 'performing', 'stageplaying', 'socializing', 'movies', 'movie', 'showbiz', 'storytelling','music', 'play', 'play-acting', 'spectacle', 'entertainment', 'sport', 'nightlife', 'karaoke', 'gigging', 'beverage', 'marketing', 'arts', 'theatre', 'shopping', 'multimedia', 'social', 'comedy', 'box', 'display', 'culture', 'musical', 'light', 'variety', 'broadcasting', 'party', 'art', 'capade', 'extravaganza', 'costume', 'television', 'infotainment', 'interactive', 'entertaining', 'performance', 'media', 'recreation', 'show', 'intertainment', 'peoplewatching', 'catering', 'theater', 'animation', 'scene', 'theatrical',  'cinema', 'aquatic', 'gambling', 'escapism', 'leisuring', 'camping', 'creation', 'enhancement', 'recreationist', 'enjoyment', 'hiking', 'toying', 'dancing', 'leisure', 'pastime', 'wildlife', 'partaking', 'sportfishing', 'gaming', 'reagitation', 'parks', 'playground', 'recreative', 'cycling', 'disport',  'activites', 'activities', 'invigoration', 'outdoor', 'time', 'boating', 'fishing', 'distraction', 'recreationalists', 'tourism', 'diversion', 'hunting', 'relaxation', 'action', 'exploration', 'golfing', 'biking', 'eatertainment', 'retail', 'warfare']},
-                    {"Miscellaneous": ["miscellaneous"]},
+                    {"Miscellaneous": ["Miscellaneous"]},
                     ]
 
     usersDb.execute(
@@ -254,7 +254,7 @@ def totalExpensePerCategorie(username, tableName):
             categories.append(category)
         else:
             categoriesAmount[category] = categoriesAmount[category] + item["value"]
-    
+
     list = []
     list.append(categoriesAmount)
     list.append(categories)
@@ -294,8 +294,6 @@ def personalCategories(username):
     tableList = list(table[0].keys())
     for i in range(1, len(tableList)):
         categories.append(tableList[i])
-    
-    print(categories)
 
     return categories
 
@@ -309,5 +307,3 @@ def deleteUser():
     usersDb.execute("DELETE FROM users WHERE username = ?;", username)
     database = ("usersDatabases/" + username + ".db")
     os.remove(database)
-
-    
