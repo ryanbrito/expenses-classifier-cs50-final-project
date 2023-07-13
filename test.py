@@ -29,6 +29,8 @@ table = usersDb.execute(
 
 # Gets all the categories the user have in it's personal categories table:
 categories = []
-for item in table:
-    categories = list(item.keys())
-print(categories.remove("id"))
+tableList = list(table[0].keys())
+for i in range(1, len(tableList)):
+    categories.append(tableList[i])
+
+print(categories)

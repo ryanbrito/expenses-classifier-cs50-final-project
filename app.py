@@ -10,7 +10,7 @@ from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
-from helpers import login_required, create_categories_table, classify, deleteUser, treatCategories, totalExpensePerCategorie
+from helpers import *
 # Used to check user's filename, like that old saying “never trust user input”.
 # Learned in: https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/;
 from werkzeug.utils import secure_filename
@@ -216,11 +216,13 @@ def dashboard():
         username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
         username = username[0]['username']
 
-        list = totalExpensePerCategorie(username, tableName)
-        categoriesAmount = list[0]
-        categories = list[1]
+        # List that contains a dictionary with the total amount spent in each category
+        # and other list with all the categories in the analyzed table
+        lists = totalExpensePerCategorie(username, tableName)
+        categoriesAmount = lists[0]
+        categories = lists[1]
 
-        # Defines a list with the total costs of each category:
+        # Creates a list with the total costs of each category:
         costs = []
         for category in categoriesAmount:
             costs.append(categoriesAmount[category])
@@ -247,10 +249,16 @@ def dashboard():
         plt.show()
         imageFile = ("static/plotImages/" + username + ".png")
         plt.savefig(imageFile)
+
+
+        '''______________________Edit Table_______________________'''
+        # Creation of table where the user can manually edit the category of his/her expenses:
+        personal = personalCategories(username)
+
         
-        return render_template("dashboard.html", tableName=tableName, source=imageFile, data=categoriesAmount)
+        return render_template("dashboard.html", tableName=tableName, source=imageFile, data=personal)
          
-    
+
     else:
         # Gets username
         user_id = session["user_id"]

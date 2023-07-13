@@ -281,6 +281,25 @@ def treatCategories(categories):
     return newCategories
 
 
+# Get's all the user's personal categories;
+def personalCategories(username):
+    tableName = username + "_categories"
+    # Gets all the data from the desired table
+    table = usersDb.execute(
+        "SELECT * FROM ? LIMIT 1 ;", tableName
+        )
+
+    # Gets all the categories the user have in it's personal categories table:
+    categories = []
+    tableList = list(table[0].keys())
+    for i in range(1, len(tableList)):
+        categories.append(tableList[i])
+    
+    print(categories)
+
+    return categories
+
+
 def deleteUser():
     user_id = session["user_id"]
     username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
@@ -290,3 +309,5 @@ def deleteUser():
     usersDb.execute("DELETE FROM users WHERE username = ?;", username)
     database = ("usersDatabases/" + username + ".db")
     os.remove(database)
+
+    
