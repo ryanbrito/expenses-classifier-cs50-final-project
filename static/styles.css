@@ -111,9 +111,25 @@ nav .navbar-brand
         margin-bottom: 2px; 
         border: 2px solid grey;
     }
+
+    #graph{
+        margin: auto;
+        margin-left: -6%;
+        margin-top: 0%;
+        margin-bottom: 0%;
+        width: 110%;
+        height: 400px;
+    }
 }
 
 
 @media screen and (max-width: 1000px){
-
+    #graph{
+        margin: auto;
+        margin-left: -10%;
+        margin-top: 0%;
+        margin-bottom: 0%;
+        width: 120%;
+        height: 400px;
+    }
 }

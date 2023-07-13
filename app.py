@@ -40,6 +40,13 @@ def after_request(response):
     return response
 
 
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "POST":
+        return
+    else:
+        return render_template("home.html")
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
 
@@ -250,8 +257,9 @@ def dashboard():
             plt.figure(figsize = (20, 5))
 
         # Sets the labels:
-        plt.ylabel("Cost", fontweight='bold')
-        plt.xlabel("Categories", fontweight='bold')
+        plt.rcParams.update({'font.size': 14})
+        plt.ylabel("Cost", fontweight='bold', fontsize="17")
+        plt.xlabel("Categories", fontweight='bold', fontsize="17")
         plt.bar(categories, costs)
         plt.grid()
         plt.show()

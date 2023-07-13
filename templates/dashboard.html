@@ -11,11 +11,11 @@
         </p>
     </head>
 
-    {{data}}
+    <img id="graph" src={{source}} alt="">
 
-    <img id="graph" style="margin-left: -10%; margin-right: -10%; margin-top:0%; width: 100%; height: 400px;" src={{source}} alt="">
+    <br><br>{{data}}
 
     <form method="post" action="/delete-user">
-        <input type="submit" name="delete" value="Delete Account">
+        <br><input type="submit" name="delete" value="Delete Account">
     </form>
 {% endblock %}
