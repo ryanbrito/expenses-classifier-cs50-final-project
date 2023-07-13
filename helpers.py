@@ -121,13 +121,13 @@ def categorize(data, categories, table):
     ''' Gets what's the last key word of the last category for posterior check if the word should be searched in dictionary for
     better categorization'''
     # Seize of table:
-    seize = len(categories)
+    size = len(categories)
     # Last Column:
     lastColumn = list(categories[0])[len(list(categories[0])) - 1]
     # Last Key:
     lastKey = usersDb.execute(
         "SELECT * FROM ? WHERE id = ?",
-    table, seize)
+    table, size)
     lastKey = lastKey[0][lastColumn]
 
     # Holds categorized expenses;
@@ -141,7 +141,10 @@ def categorize(data, categories, table):
         # Holds already searched words from the current expense;
         alreadySearched = []
 
+        count = 0
+
         for dictionary in categories:
+            count = count + 1
             for category in dictionary:
                 # Assure only expenses not categorized yet are searched
                 if expense not in found:
@@ -156,7 +159,7 @@ def categorize(data, categories, table):
                             break
 
                         # Tries Categorize expenses by keywords in the meaning, if not able tocategorize wihtout it;
-                        elif dictionary[category] == lastKey and category == lastColumn and {"miscellaneous":expense} not in categorized and expense not in found:
+                        elif dictionary[category] == lastKey and category == lastColumn and {"miscellaneous":expense} not in categorized and expense not in found and count == size:
                             if word not in alreadySearched and word in words:
                                 # Used the following dictionary api https://dictionaryapi.dev/ ;
                                 # Learned in https://pypi.org/project/python-freeDictionaryAPI/ ;

@@ -163,8 +163,8 @@ def upload():
         fileType = os.path.splitext(filename)
         if not filename or fileType[1] != ".xlsx":
             return render_template("upload.html", placeholder=1)
+        
         else:
-
             # Gets the data of the file and pass it to the data list:
             dataframe = pd.read_excel(("uploads/" + filename))
             dataframe = dataframe[dataframe.columns.drop(list(dataframe.filter(regex='Unnamed:')))].to_dict('split')
@@ -284,7 +284,7 @@ def dashboard():
 
         # Gets the list of all categorized sheets the user have;
         sheetsList = usersDb.execute(
-            "SELECT metric_tables_id FROM ? ORDER BY metric_tables_id DESC;",
+            "SELECT metric_tables_id FROM ? ORDER BY id DESC;",
             (username + "_list")
         )
 
