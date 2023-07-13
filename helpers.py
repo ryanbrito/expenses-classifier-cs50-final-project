@@ -63,7 +63,7 @@ def createDefaultTable():
 
     # Insert the dafault key words into the new table:
     keyWordsRows = []
-    for i in range(198):
+    for i in range(126):
         newRow = []
         for category in categories:
             for cateName in category:
@@ -229,6 +229,37 @@ def dictionaryApi(term):
             definition.remove(term)
 
         return definition
+
+# Gets the total amount spent in each category putting it in a dictionary and a list with all the categories
+# in the analyzed table;
+def totalExpensePerCategorie(username, tableName):
+    # Gets user database
+    database = ("sqlite:///" + "usersDatabases/" + username + ".db")
+    database = SQL(database)
+
+    # Gets all the data from the desired table
+    table = database.execute(
+        "SELECT * FROM ?;", tableName
+        )
+    
+    
+    # Sum all the price/values of each category and add the pair category and total value to a dict;
+    categoriesAmount = {}
+    categories = []
+    
+    for item in table:
+        category = item["category"]
+        if category not in categories:
+            categoriesAmount[category] = item["value"]
+            categories.append(category)
+        else:
+            categoriesAmount[category] = categoriesAmount[category] + item["value"]
+    
+    list = []
+    list.append(categoriesAmount)
+    list.append(categories)
+    
+    return list
 
 
 # Aesthetics of Graph: treat categories words for printing in graph with spaces

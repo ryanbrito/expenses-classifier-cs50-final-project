@@ -10,7 +10,7 @@ from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
-from helpers import login_required, create_categories_table, classify, deleteUser, treatCategories
+from helpers import login_required, create_categories_table, classify, deleteUser, treatCategories, totalExpensePerCategorie
 # Used to check user's filename, like that old saying “never trust user input”.
 # Learned in: https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/;
 from werkzeug.utils import secure_filename
@@ -41,6 +41,7 @@ def after_request(response):
 
 
 @app.route("/", methods=["GET", "POST"])
+@login_required
 def index():
     if request.method == "POST":
         return
@@ -206,7 +207,6 @@ def dashboard():
         #______________Gets and treat data from the user's desired table______________________
         # Gets the name of the table the user wants to get a basic dashboard from;
         tableName = request.form.get("sheet")
-
         # Checks if table variable is a valid one:
         if not tableName:
             return redirect("/dashboard")
@@ -216,27 +216,9 @@ def dashboard():
         username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
         username = username[0]['username']
 
-        # Gets user database
-        database = ("sqlite:///" + "usersDatabases/" + username + ".db")
-        database = SQL(database)
-
-        # Gets all the data from the desired table
-        table = database.execute(
-            "SELECT * FROM ?;", tableName
-            )
-        
-        
-        # Sum all the price/values of each category and add the pair category and total value to a dict;
-        categoriesAmount = {}
-        categories = []
-        
-        for item in table:
-            category = item["category"]
-            if category not in categories:
-                categoriesAmount[category] = item["value"]
-                categories.append(category)
-            else:
-                categoriesAmount[category] = categoriesAmount[category] + item["value"]
+        list = totalExpensePerCategorie(username, tableName)
+        categoriesAmount = list[0]
+        categories = list[1]
 
         # Defines a list with the total costs of each category:
         costs = []
@@ -248,7 +230,7 @@ def dashboard():
         # Creates a graph based on the pair category / total costs:
 
         # Aesthetics of Graph: treat categories words for printing in graph with spaces
-        categories = treatCategories(categories)
+        categoriesEdit = treatCategories(categories)
 
         # Makes graph resizable based on how many categories it has so that the user can have a better visualization
         if len(category) >= 10:
@@ -260,13 +242,13 @@ def dashboard():
         plt.rcParams.update({'font.size': 14})
         plt.ylabel("Cost", fontweight='bold', fontsize="17")
         plt.xlabel("Categories", fontweight='bold', fontsize="17")
-        plt.bar(categories, costs)
+        plt.bar(categoriesEdit, costs)
         plt.grid()
         plt.show()
         imageFile = ("static/plotImages/" + username + ".png")
         plt.savefig(imageFile)
         
-        return render_template("dashboard.html", tableName=tableName, data=imageFile, source=imageFile)
+        return render_template("dashboard.html", tableName=tableName, source=imageFile, data=categoriesAmount)
          
     
     else:
