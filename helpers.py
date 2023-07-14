@@ -47,7 +47,7 @@ def createDefaultTable():
     categories = [{"Education": ['education', 'public', 'university', 'course', 'appliances', 'college', 'polytech', 'student', 'universiti', 'academic', 'academia', 'polytechnical', 'dean', 'polytechnic', 'graduate', 'universitv', 'universites', 'nonuniversity', 'faculty', 'department', 'seminary', 'conservatorium', 'universitie', 'institution', 'dormitory', 'campus', 'undergrad', 'institute', 'provost', 'academy', 'school', 'monash', 'univ', 'postgraduate', 'professor', 'postdoc', 'undergraduate', 'mba', 'studentship', 'doctorate']},
                     {"Housing": ['housing','rent','livingroom', 'village', 'townhome', 'garage', 'bouse', 'outbuilding', 'habitat', 'firm', 'furniture', 'homestead', 'mansion', 'inhabitation', 'cabin', 'woning', 'dwelling-house', 'summerhouse', 'treehouse', 'room', 'workhome', 'houseling', 'refuge', 'houselet', 'house','doghouse', 'chalet', 'housebuilding', 'penthouse', 'bathroom', 'office', 'household', 'put' 'gate', 'office-house', 'attic', 'palace', 'dollhouse', 'townhouse', 'yard', 'apartment', 'courtyard', 'terrace', 'hous', 'residence', 'property', 'habitation', 'home', 'bedroom', 'town', 'shack', 'condo', 'basement', 'manse', 'cabbin', 'sunroom', 'place', 'guesthouse', 'lawn', 'upstairs', 'patio', 'estate', 'street','backyard', 'farmhouse', 'playhouse', 'building', 'garden', 'kitchen', 'neighborhood', 'studio', 'church', 'driveway', 'dwellinghouse', 'shouse']},
                     {"Transportation": ['transload', 'transcytotic', 'convey', 'ferry', 'carry', 'railroad', 'cart',  'gas', 'gasoline', 'alcohol', 'diesel', 'distribution', 'transportation', 'send', 'airlift', 'taxi', 'offloading', 'logistics', 'transhipping', 'destination', 'drive', 'channel', 'transhipment', 'luggage', 'delivery', 'train', 'resupply','transport', 'travel', 'mobility', 'unloading', 'vehicle', 'relocation', 'transporter', 'supply',  'transit', 'transferral', 'shipping', 'airfreight', 'tranship', 'storage', 'export', 'carriage', 'loading', 'transp', 'transshipping', 'translocation', 'ecstasy', 'trucking', 'ride', 'cargo', 'locomotion', 'carrier', 'transmit', 'service', 'rail', 'fuel', 'depot', 'railway', 'transporte']},
-                    {"Food": ['dinner', 'food', 'turkey', 'nourishment', 'aliment', 'carbohydrate', 'bread', 'comestible', 'liquor', 'eating', 'cookery', 'grain',  'liver', 'drink', 'gastronomy', 'breadstuff', 'agriculture', 'seafood', 'beer', 'livestock', 'protein', 'buffet', 'sustenance', 'feed', 'eatable', 'dining', 'foodstyle', 'cuisine', 'flesh', 'restaurant', 'sushi', 'gourmet', 'delicacies', 'cereal', 'fish', 'vegetables', 'sometimes', 'solid', 'nutrient', 'pasta', 'fresh', 'drinks', 'snacks', 'dishes', 'diet', 'chicken', 'nutriment', 'fruit', 'meat', 'meal', 'pizza', 'animal', 'daily', 'water', 'foodery', 'groceries', 'helping', 'snack', 'wine', 'dessert', 'cooking', 'breakfast', 'nutritious', 'foodstuffs', 'famine']},
+                    {"Food": ['dinner', 'food', 'turkey', 'nourishment', 'aliment', 'carbohydrate', 'bread', 'comestible', 'liquor', 'eating', 'cookery', 'grain',  'liver', 'drink', 'gastronomy', 'breadstuff', 'agriculture', 'seafood', 'beer', 'livestock', 'protein', 'buffet', 'sustenance', 'feed', 'eatable', 'dining', 'foodstyle', 'cuisine', 'flesh', 'restaurant', 'sushi', 'gourmet', 'delicacies', 'cereal', 'fish', 'vegetables', 'sometimes', 'solid', 'nutrient', 'pasta', 'fresh', 'drinks', 'snacks', 'dishes', 'diet', 'chicken', 'nutriment', 'fruit', 'meat', 'meal', 'pizza', 'animal', 'daily', 'water', 'foodery', 'groceries', 'helping', 'snack', 'wine', 'dessert', 'milk', 'cooking', 'breakfast', 'nutritious', 'foodstuffs', 'famine']},
                     {"Utilities": ['cables', 'heaters', 'outlets', 'substation', 'providers', 'utilitarian', 'insulators', 'generators', 'electrical', 'essentials', 'utility', 'pipelines', 'efficient', 'resources', 'electrics', 'electric', 'plumbers', 'cable', 'heater', 'ductwork',  'industrials', 'baseload', 'plumbing', 'solar', 'hydroelectricity', 'irrigation', 'terminals', 'supplies', 'installations', 'station', 'heating', 'pipes', 'grid', 'pipework']},
                     {"MedicalHealthcare": [ 'preventible', 'medivac', 'rehabilitatee', 'care', 'oncology', 'lifecare', 'radiology', 'homecarer', 'ehealth', 'paediatrics', 'life-support', 'medspa', 'styling', 'healthrelated', 'folk-medicine', 'aesthetics', 'childcare', 'homoeopath', 'healthworker', 'wellness', 'pharmacy', 'clinical', 'telemedical', 'biomedicine', 'medicare', 'pharma', 'preventative', 'nutrition', 'nurse-practitioner', 'medtech', 'cureall', 'care-taking', 'therapist', 'esthetics', 'telehealth', 'hospitaler', 'out-patient', 'baby-care', 'biopharmaceutical', 'paediatry', 'sanitarium', 'homoeopathism', 'health', 'sanitorium', 'panacaea', 'pediatry', 'anatomicomedical', 'aesculapian', 'pharmaceutic', 'medicine', 'gastroenterological', 'neurosurgical', 'psychopharmaceutical', 'medicamental', 'physiological', 'pharmacological', 'paraclinical', 'physicomedical', 'nonmedical', 'financial', 'photomedical', 'biochemical', 'clinic', 'diagnostic', 'radiological', 'medic', 'orthopaedic', 'biomedicinal',  'dental', 'ophthalmological', 'pediatric', 'medicotechnical', 'neurodiagnostic', 'cardiological', 'gynaecological', 'pharm', 'telemedicinal', 'medical', 'diagnostical', 'psychomedical', 'physicianary', 'iatric', 'hospital', 'geomedical', 'gynecological', 'nutritional', 'psychological', 'doctoral', 'premedical', 'paramedical', 'healthcare', 'veterinary', 'biomedical', 'cardiologic', 'medicational', 'biological', 'electromedical', 'obstetric', 'examination', 'oncological', 'checkup', 'pharmaceutical', 'medicinal', 'neurological', 'outpatient', 'obstetrical', 'orthopedic', 'sociomedical', 'cosmetic', 'medicamentary', 'surgical', 'psychiatric', 'dermatological', 'stomatological', 'emergency', 'otological', 'aeromedical']},
                     {"Insurance": ["insurance", 'insurer', 'mortgage', 'liability', 'bancassurance', 'cession', 'policyholder', 'uninsurable', 'assured', 'annuity', 'reinsure', 'safety', 'life', 'fidelity', 'insurable', 'takaful', 'hazard', 'retention', 'peril', 'risk', 'bordereau', 'allstate', 'moral', 'increasing', 'assurance', 'protection', 'claim', 'coverage', 'net', 'association', 'aval', 'guaranty', 'valued', 'microinsurance', 'security', 'reinsurance', 'insure', 'underwriting', 'valuation', 'uninsured', 'contingent', 'decreasing', 'noninsurance', 'cost','provision', 'guarantee', 'term', 'policy', 'underinsurance', 'viaticals', 'cover', 'bankassurance', 'indemnity', 'endowment', 'coinsurance', 'contract', 'compensation']},
@@ -140,41 +140,41 @@ def categorize(data, categories, table):
         words = getWords(expense[0])
         # Holds already searched words from the current expense;
         alreadySearched = []
-
-        count = 0
-
-        for dictionary in categories:
-            count = count + 1
-            for category in dictionary:
-                # Assure only expenses not categorized yet are searched
-                if expense not in found:
-                    # Checks if any of the words of the expense is a key word of any category, if so, it's own category is found;
-                    for word in words:
+        
+        # Assure only expenses not categorized yet are searched
+        if expense not in found:
+            for word in words:
+                # Holds how many rows the program iterated over
+                count = 0
+                for dictionary in categories:
+                    count = count + 1
+                    for category in dictionary:
+                        # Checks if the current key word corresponds to the analyzed word
                         current = dictionary[category]
-                        if current != 'NULL' and word == current:
-                            if {"miscellaneous":expense} in categorized:
-                                categorized.remove({"miscellaneous":expense})
+                        if word == current and expense not in found:
                             categorized.append({category:expense})
                             found.append(expense)
                             break
 
-                        # Tries Categorize expenses by keywords in the meaning, if not able tocategorize wihtout it;
-                        elif dictionary[category] == lastKey and category == lastColumn and {"miscellaneous":expense} not in categorized and expense not in found and count == size:
-                            if word not in alreadySearched and word in words:
-                                # Used the following dictionary api https://dictionaryapi.dev/ ;
-                                # Learned in https://pypi.org/project/python-freeDictionaryAPI/ ;
-                                meaning = dictionaryApi(word)
-                                # don't consider "none" (which means the word was not found in the api dictionary);
-                                if meaning != "none":
-                                    for sentence in meaning:
-                                        alreadySearched.append(sentence)
-                                        words.append(sentence)
+                        # Tries Categorize expenses by keywords in the meaningif ,f not able to categorize wihtout it;
+                        elif current == lastKey and category == lastColumn and expense not in found and count == size and word not in alreadySearched:
+                            alreadySearched.append(word)
+                            # Used the following dictionary api https://dictionaryapi.dev/ ;
+                            # Learned in https://pypi.org/project/python-freeDictionaryAPI/ ;
+                            meaning = dictionaryApi(word)
+                            # don't consider "none" (which means the word was not found in the api dictionary);
+                            if meaning != "none":
+                                for sentence in meaning:
+                                    words.append(sentence)
+                                    alreadySearched.append(sentence)
+                            if meaning == "none" and word == words[len(words) - 1]:
+                                found.append({"Miscellaneous":expense})
+                                categorized.append({"Miscellaneous":expense})
 
-                                # If not able to find the category for the expense, the category miscellaneous is atributed to it:
-                                else:
-                                    categorized.append({"miscellaneous":expense})
-                            else:
-                                categorized.append({"miscellaneous":expense})
+                        # If not able to find the category for the expense, the category miscellaneous is atributed to it:
+                        elif word == words[len(words) - 1] and current == lastKey and category == lastColumn and {"Miscellaneous":expense} not in categorized and expense not in found and count == size:
+                            found.append({"Miscellaneous":expense})
+                            categorized.append({"Miscellaneous":expense})
     return categorized
 
 
@@ -310,3 +310,5 @@ def deleteUser():
     usersDb.execute("DELETE FROM users WHERE username = ?;", username)
     database = ("usersDatabases/" + username + ".db")
     os.remove(database)
+
+

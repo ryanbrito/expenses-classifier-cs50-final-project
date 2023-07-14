@@ -183,7 +183,12 @@ def upload():
             user_id = session["user_id"]
             username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
             username = username[0]['username']
-            title = name
+            # Treats the aesthetic format of title to fit correctly in SQL database:
+            title = name.title()
+            scapesSpaces = ' \n\r\a\b\f\t\v'
+            title = title.title()
+            title = title.translate(str.maketrans('','', scapesSpaces))
+
             userSheetList = (username + "_list")
 
             # Checks if there's no table with the same name that the user wants:
@@ -233,8 +238,8 @@ def dashboard():
 
         # Aesthetics of Graph: treat categories words for printing in graph with spaces
         categoriesEdit = treatCategories(categories)
-
-        # Makes graph resizable based on how many categories it has so that the user can have a better visualization
+        
+        # Better visualization: adjust the size of the image based on how many categories it has;
         for category in categories:
             if len(category) >= 10:
                 plt.figure(figsize = (35, 5)) 
@@ -244,7 +249,7 @@ def dashboard():
 
         # Sets the labels:
         plt.rcParams.update({'font.size': 14})
-        plt.ylabel("Cost", fontweight='bold', fontsize="17")
+        plt.ylabel("Cost ($)", fontweight='bold', fontsize="17")
         plt.xlabel("Categories", fontweight='bold', fontsize="17")
         plt.bar(categoriesEdit, costs)
         plt.grid()

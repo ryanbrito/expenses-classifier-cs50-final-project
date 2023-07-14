@@ -107,6 +107,7 @@ nav .navbar-brand
     }
 
     #buttonList{
+        width: 90%;
         padding-right: 90%; 
         margin-bottom: 2px; 
         border: 2px solid grey;
