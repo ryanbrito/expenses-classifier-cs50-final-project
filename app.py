@@ -209,17 +209,29 @@ def upload():
 @login_required
 def dashboard():
     if request.method == "POST":
+
+        # Gets username
+        user_id = session["user_id"]
+        username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
+        username = username[0]['username']
+
+        # Deletion: Checks if the user wants to delete any sheet from database, if so, it is deletede;
+        deleteItem = request.form.get("delete")
+        if deleteItem:
+            database = ("sqlite:///" + "usersDatabases/"+ username + ".db")
+            database = SQL(database)
+            database.execute("DROP TABLE ?;", deleteItem)
+            database = ("sqlite:///" + "users.db")
+            database = SQL(database)
+            database.execute("DELETE FROM ? WHERE metric_tables_id = ?;", (username + "_list"), deleteItem)
+            return redirect("/dashboard")
+            
         #______________Gets and treat data from the user's desired table______________________
         # Gets the name of the table the user wants to get a basic dashboard from;
         tableName = request.form.get("sheet")
         # Checks if table variable is a valid one:
         if not tableName:
             return redirect("/dashboard")
-
-        # Gets username
-        user_id = session["user_id"]
-        username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
-        username = username[0]['username']
 
         # List that contains a dictionary with the total amount spent in each category
         # and other list with all the categories in the analyzed table

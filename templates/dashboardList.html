@@ -11,10 +11,20 @@
         </p>
     </head>
 
-    <form action="/dashboard" method="post">
-        {% for item in placeholder %}
-            <button id="buttonList" name="sheet" value={{item}} type="submit" class="btn btn-light">{{item}}</button><br>
-        {% endfor %}  
+    <form  action="/dashboard" method="post">
+        <table id="dashboardList">
+            {% for item in placeholder %}
+                <tr>
+                    <td id="listDivision">
+                        <button id="buttonList" name="sheet" value={{item}} type="submit" class="btn btn-light">{{item}}</button><br>
+                    </td>
+                    <td id="deleteDivision">
+                        <button id="deleteButton" name="delete" value={{item}} type="submit" class="btn btn-light">Delete</button><br>
+                    </td>
+                </tr>
+            {% endfor %}  
+
+        </table>
     </form>
     
 

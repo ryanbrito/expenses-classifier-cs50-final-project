@@ -106,11 +106,38 @@ nav .navbar-brand
         margin-bottom: 0%;
     }
 
-    #buttonList{
+    #dashboardList{
         width: 90%;
-        padding-right: 90%; 
+        margin: auto;
+    }
+
+    #buttonList{
+        text-align: left;
+        width: 100%;
         margin-bottom: 2px; 
         border: 2px solid grey;
+    }
+
+    #buttonList:hover{
+        border: solid green 3px;
+    }
+
+    #listDivision{
+        width: 90%;
+    }
+
+    #deleteButton{
+        width: 100%;
+        margin-bottom: 2px; 
+        border: 2px solid grey;
+    }
+
+    #deleteButton:hover{
+        border: solid green 3px;
+    }
+
+    #deleteDivision{
+        width: 100%;
     }
 
     #graph{
