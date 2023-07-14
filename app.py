@@ -215,19 +215,16 @@ def dashboard():
         username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
         username = username[0]['username']
 
+        '''________Deletion of desired sheets_________'''
         # Deletion: Checks if the user wants to delete any sheet from database, if so, it is deletede;
         deleteItem = request.form.get("delete")
         if deleteItem:
-            database = ("sqlite:///" + "usersDatabases/"+ username + ".db")
-            database = SQL(database)
-            database.execute("DROP TABLE ?;", deleteItem)
-            database = ("sqlite:///" + "users.db")
-            database = SQL(database)
-            database.execute("DELETE FROM ? WHERE metric_tables_id = ?;", (username + "_list"), deleteItem)
-            return redirect("/dashboard")
+            deleteSheet(deleteItem, username)
+
+        
             
-        #______________Gets and treat data from the user's desired table______________________
-        # Gets the name of the table the user wants to get a basic dashboard from;
+        #______________Gets and treat data from the user's selected table______________________
+        # Gets the name of the table the user wants to get the basic dashboard from;
         tableName = request.form.get("sheet")
         # Checks if table variable is a valid one:
         if not tableName:
@@ -270,7 +267,7 @@ def dashboard():
         plt.savefig(imageFile)
 
 
-        '''______________________Edit Table_______________________'''
+        '''______________________Edit Table (OUTPUT)_______________________'''
         # Creation of table where the user can manually edit the category of his/her expenses:
 
         # All the user's personalCategories
@@ -289,8 +286,9 @@ def dashboard():
         for row in table:
             row['category'] = (treatCategories([row['category']]))[0]
             row['value'] = '${:,.2f}'.format(row['value'])
+        personal = treatCategories(personal)
         
-        return render_template("dashboard.html", tableName=tableName, source=imageFile, table=table)
+        return render_template("dashboard.html", tableName=tableName, source=imageFile, table=table, personalCategories=personal)
          
 
     else:

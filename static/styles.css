@@ -100,30 +100,12 @@ nav .navbar-brand
         height:25px;
     }
 
+    /*___________Dashboard:_____________________*/
+
     #titleDash{
         font-size: 5vw;
         padding-bottom: 0%;
         margin-bottom: 0%;
-    }
-
-    #dashboardList{
-        width: 90%;
-        margin: auto;
-    }
-
-    #buttonList{
-        text-align: left;
-        width: 100%;
-        margin-bottom: 2px; 
-        border: 2px solid grey;
-    }
-
-    #buttonList:hover{
-        border: solid green 3px;
-    }
-
-    #listDivision{
-        width: 90%;
     }
 
     #deleteButton{
@@ -147,6 +129,44 @@ nav .navbar-brand
         margin-bottom: 0%;
         width: 110%;
         height: 400px;
+    }
+
+    #dashboardList{
+        width: 90%;
+        margin: auto;
+    }
+
+    #buttonList{
+        text-align: left;
+        width: 100%;
+        margin-bottom: 2px; 
+        border: 2px solid grey;
+    }
+
+    #buttonList:hover{
+        border: solid green 3px;
+    }
+
+    #listDivision{
+        width: 90%;
+    }
+
+    #categorySelection{
+        font-size: 15px;
+        width: 40%;
+        height: 35px;
+    }
+
+    #categorySelection:hover{
+        border: solid green 3px;
+    }
+
+    #categorySelection:focus{
+        border: solid green 3px;
+    }
+
+    #categoryDivison{
+        width: 25%;
     }
 
     #tables{

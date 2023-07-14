@@ -301,6 +301,17 @@ def personalCategories(username):
     return categories
 
 
+# Deletes the user's selected sheet of expenses from database
+def deleteSheet(sheet, username):
+    database = ("sqlite:///" + "usersDatabases/"+ username + ".db")
+    database = SQL(database)
+    database.execute("DROP TABLE ?;", sheet)
+    database = ("sqlite:///" + "users.db")
+    database = SQL(database)
+    database.execute("DELETE FROM ? WHERE metric_tables_id = ?;", (username + "_list"), sheet)
+    return redirect("/dashboard")
+
+
 def deleteUser():
     user_id = session["user_id"]
     username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)

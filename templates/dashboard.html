@@ -28,11 +28,24 @@
             </thead>
             <tbody>
                 {% for row in table %}
-                    <tr>   
+                    <tr id="rows">   
                         <td>{{row['id']}}</td>
                         <td>{{row['expense']}}</td>
                         <td>{{row['value']}}</td>
-                        <td>{{row['category']}}</td>
+                        <form>
+                            <!-- Select Menu where the user can manually change the category of an especific expense-->
+                            <td id="categoryDivison">
+                                <select id="categorySelection">
+                                    <option disabled selected>{{row['category']}}</option>
+                                    {% for category in personalCategories%}
+                                        {% if category != row['category'] %}
+                                            <option value=category>{{category}}</option>
+                                        {% endif %}
+                                    {% endfor%}
+                                </select>
+                            </td>
+                        </form>
+                        
                     </tr>
                 {%  endfor %}
             </tbody>
