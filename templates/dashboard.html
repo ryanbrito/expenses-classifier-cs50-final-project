@@ -32,14 +32,15 @@
                         <td>{{row['id']}}</td>
                         <td>{{row['expense']}}</td>
                         <td>{{row['value']}}</td>
-                        <form action="/dashboard" method="post">
+                        <form action="/dashboardEdit" method="post">
                             <!-- Select Menu where the user can manually change the category of an especific expense-->
                             <td id="categoryDivison">
-                                <select name="change" id="categorySelection" onchange="this.form.submit()"">
+                                <select name="change" id="categorySelection" onchange="this.form.submit()">
                                     <option disabled selected>{{row['category']}}</option>
                                     {% for category in personalCategories%}
                                         {% if category != row['category'] %}
-                                            <option value=[{{row['expense']}} , {{category}}] >{{category}}</option>
+                                            <!-- Try to pass multiple values-->
+                                            <option value={{row['id']}} >{{category}}</option>
                                         {% endif %}
                                     {% endfor%}
                                 </select>

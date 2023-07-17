@@ -216,7 +216,15 @@ def dashboard():
     username = username[0]['username']
         
     if request.method == "POST":
+
+        '''________Deletion of desired sheets (ONCLICK)_________'''
+        # Deletion: Checks if the user wants to delete any sheet from database, if so, it is deletede;
+        deleteItem = request.form.get("delete")
+        if deleteItem:
+            deleteSheet(deleteItem, username)
             
+        
+        # If no sheet was deleted:
         #______________Gets and treat data from the user's selected table______________________
         # Gets the name of the table the user wants to get the basic dashboard from;
         tableName = request.form.get("sheet")
@@ -282,26 +290,7 @@ def dashboard():
             row['value'] = '${:,.2f}'.format(row['value'])
         personal = treatCategories(personal)
 
-
-            
-        '''________Deletion of desired sheets (ONCLICK)_________'''
-        # Deletion: Checks if the user wants to delete any sheet from database, if so, it is deletede;
-        deleteItem = request.form.get("delete")
-        if deleteItem:
-            deleteSheet(deleteItem, username)
-
-
-        '''____________User's Expenses Categories edit/change (ACTIVATED IN SELECT OPTIONS)______________'''
-        change = request.form.getlist("change")
-        if change:
-            for i in range(10):
-                print(change)
-
-
-
         return render_template("dashboard.html", tableName=tableName, source=imageFile, table=table, personalCategories=personal)
-
-
          
 
     else:
@@ -317,6 +306,23 @@ def dashboard():
             placeholder.append((item["metric_tables_id"]))
          # Passes placeholer with all the categorized sheets the user have;
         return render_template("dashboardList.html", placeholder=placeholder)
+
+
+@app.route("/dashboardEdit", methods=["POST"])   
+@login_required   
+def dashboardEdit():
+    # Gets username
+    user_id = session["user_id"]
+    username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
+    username = username[0]['username']
+        
+    if request.method == "POST":
+        '''____________User's Expenses Categories edit/change (ACTIVATED IN SELECT OPTIONS)______________'''
+        change = request.form.getlist("change")
+        if change:
+            for i in range(2):
+                print("___")
+                print(change)
 
 
 @app.route("/delete-user", methods=["GET", "POST"])   
