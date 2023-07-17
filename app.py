@@ -14,6 +14,8 @@ from helpers import *
 # Used to check user's filename, like that old saying “never trust user input”.
 # Learned in: https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/;
 from werkzeug.utils import secure_filename
+from werkzeug.datastructures import ImmutableMultiDict
+
 
 # Path of where uploaded files will be stored:
 UPLOAD_FOLDER = "uploads"
@@ -208,20 +210,12 @@ def upload():
 @app.route("/dashboard", methods=["GET", "POST"])   
 @login_required
 def dashboard():
-    if request.method == "POST":
-
-        # Gets username
-        user_id = session["user_id"]
-        username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
-        username = username[0]['username']
-
-        '''________Deletion of desired sheets_________'''
-        # Deletion: Checks if the user wants to delete any sheet from database, if so, it is deletede;
-        deleteItem = request.form.get("delete")
-        if deleteItem:
-            deleteSheet(deleteItem, username)
-
+    # Gets username
+    user_id = session["user_id"]
+    username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
+    username = username[0]['username']
         
+    if request.method == "POST":
             
         #______________Gets and treat data from the user's selected table______________________
         # Gets the name of the table the user wants to get the basic dashboard from;
@@ -287,16 +281,30 @@ def dashboard():
             row['category'] = (treatCategories([row['category']]))[0]
             row['value'] = '${:,.2f}'.format(row['value'])
         personal = treatCategories(personal)
-        
+
+
+            
+        '''________Deletion of desired sheets (ONCLICK)_________'''
+        # Deletion: Checks if the user wants to delete any sheet from database, if so, it is deletede;
+        deleteItem = request.form.get("delete")
+        if deleteItem:
+            deleteSheet(deleteItem, username)
+
+
+        '''____________User's Expenses Categories edit/change (ACTIVATED IN SELECT OPTIONS)______________'''
+        change = request.form.getlist("change")
+        if change:
+            for i in range(10):
+                print(change)
+
+
+
         return render_template("dashboard.html", tableName=tableName, source=imageFile, table=table, personalCategories=personal)
+
+
          
 
     else:
-        # Gets username
-        user_id = session["user_id"]
-        username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
-        username = username[0]['username']
-
         # Gets the list of all categorized sheets the user have;
         sheetsList = usersDb.execute(
             "SELECT metric_tables_id FROM ? ORDER BY id DESC;",
