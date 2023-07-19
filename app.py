@@ -6,7 +6,7 @@ import pandas as pd;
 from matplotlib import pyplot as plt
 from PIL import Image
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, jsonify, request, session
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -15,6 +15,7 @@ from helpers import *
 # Learned in: https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/;
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import ImmutableMultiDict
+import json
 
 
 # Path of where uploaded files will be stored:
@@ -308,7 +309,7 @@ def dashboard():
         return render_template("dashboardList.html", placeholder=placeholder)
 
 
-@app.route("/dashboardEdit", methods=["POST"])   
+@app.route("/dashboard/edit", methods=["POST"])   
 @login_required   
 def dashboardEdit():
     # Gets username
@@ -318,11 +319,10 @@ def dashboardEdit():
         
     if request.method == "POST":
         '''____________User's Expenses Categories edit/change (ACTIVATED IN SELECT OPTIONS)______________'''
-        change = request.form.getlist("change")
-        if change:
-            for i in range(2):
-                print("___")
-                print(change)
+        changes = request.get_json()
+        if changes:
+            print("\n\n\n\n______________________________________________")
+            print("Changes are " + str(changes) + "\n\n\n\n")
 
 
 @app.route("/delete-user", methods=["GET", "POST"])   

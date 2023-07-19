@@ -165,10 +165,6 @@ nav .navbar-brand
         border: solid green 3px;
     }
 
-    #categoryDivison{
-        width: 25%;
-    }
-
     #tables{
         border: 1px solid black;
         margin: auto;

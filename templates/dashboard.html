@@ -32,29 +32,31 @@
                         <td>{{row['id']}}</td>
                         <td>{{row['expense']}}</td>
                         <td>{{row['value']}}</td>
-                        <form action="/dashboardEdit" method="post">
+                        <form>
                             <!-- Select Menu where the user can manually change the category of an especific expense-->
                             <td id="categoryDivison">
-                                <select name="change" id="categorySelection" onchange="this.form.submit()">
+
+                                {% set menuId =  row['id']|string %}
+
+                                <select name="change" id={{menuId}}>
                                     <option disabled selected>{{row['category']}}</option>
                                     {% for category in personalCategories%}
                                         {% if category != row['category'] %}
-                                            <!-- Try to pass multiple values-->
-                                            <option value={{row['id']}} >{{category}}</option>
+                                            <option value={{category}}>{{category}}</option>
                                         {% endif %}
                                     {% endfor%}
                                 </select>
+                                
                             </td>
-                        </form>
-                        
+                        </form>                        
                     </tr>
                 {%  endfor %}
             </tbody>
         </table>
-    </div>
-    
 
-    <form method="post" action="/delete-user">
-        <br><input type="submit" name="delete" value="Delete Account">
-    </form>
+        <br>
+        <button type="button" class="btn btn-success" onclick="submitCategoryChange()">Submit Changes</button>
+        <br>
+
+    </div>
 {% endblock %}
