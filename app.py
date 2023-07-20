@@ -275,6 +275,7 @@ def dashboard():
 
         # All the user's personalCategories
         personal = personalCategories(username)
+        personal = treatCategories(personal)
 
         # Converts the current table to a list
         tableRows = []
@@ -289,7 +290,6 @@ def dashboard():
         for row in table:
             row['category'] = (treatCategories([row['category']]))[0]
             row['value'] = '${:,.2f}'.format(row['value'])
-        personal = treatCategories(personal)
 
         return render_template("dashboard.html", tableName=tableName, source=imageFile, table=table, personalCategories=personal)
          
@@ -322,7 +322,7 @@ def dashboardEdit():
         changes = request.get_json()
         if changes:
             print("\n\n\n\n______________________________________________")
-            print("Changes are " + str(changes) + "\n\n\n\n")
+            print("Changes are \n" + str(changes) + "\n\n\n\n")
 
 
 @app.route("/delete-user", methods=["GET", "POST"])   

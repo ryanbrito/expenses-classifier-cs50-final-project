@@ -17,7 +17,7 @@
     <!-- Table where the user can manually edit the category of his/her expenses: -->
     <br>
     <div >
-        <table class="table table-striped" style="margin: auto; width: 90%" id="tables">
+        <table class="table table-striped" style="margin: auto; width: 90%" data-test="test" id="tables">
             <thead style="background-color: #36bb7b;">
                 <tr>
                     <th scope="col">ID:</th>
@@ -28,7 +28,7 @@
             </thead>
             <tbody>
                 {% for row in table %}
-                    <tr id="rows">   
+                    <tr id="row">   
                         <td>{{row['id']}}</td>
                         <td>{{row['expense']}}</td>
                         <td>{{row['value']}}</td>
@@ -37,12 +37,15 @@
                             <td id="categoryDivison">
 
                                 {% set menuId =  row['id']|string %}
+                                {# Remove spaces with the use of jinja to fit the whole category name correctly inside the attributes: #}
+                                {% set oldCategory = row['category']|replace(' ', '') %}
 
-                                <select name="change" id={{menuId}}>
-                                    <option disabled selected>{{row['category']}}</option>
+                                <select name="change" id={{menuId}} data-oldCategory={{oldCategory}}>
+                                    <option disabled selected value={{oldCategory}}>{{row['category']}}</option>
                                     {% for category in personalCategories%}
                                         {% if category != row['category'] %}
-                                            <option value={{category}}>{{category}}</option>
+                                            {%  set value = category|replace(' ', '') %}
+                                            <option value={{value}}>{{category}}</option>
                                         {% endif %}
                                     {% endfor%}
                                 </select>

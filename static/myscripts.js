@@ -9,23 +9,39 @@ function loadingScreen () {
     document.getElementById("theOverlay").style.display = "inline";
 }
 
+// Submits all category changes requests the user wants:
 function submitCategoryChange () {
     var selectMenusQuantity = document.getElementsByTagName('tr').length - 1;
-    alert(selectMenusQuantity)
 
-    var selected = [];
+    // Holds all the users required category changes
+    var changes = [];
 
+    // Iterates over each expense select menu, to get the changes in each one:
     for (let i = 1; i <= selectMenusQuantity; i++){
-        for (var option of document.getElementById(i.toString()).options)
+        var currentSelect = document.getElementById((i.toString()));
+        for (var option of currentSelect.options)
         {
-            if (option.selected) {
-                selected.push(option.value);
+            var oldCategory = currentSelect.getAttribute("data-oldCategory");
+            var newCategory = option.value;
+            if (option.selected && newCategory != oldCategory) {
+                var expenseId = currentSelect.id;
+
+                changes.push(
+                    {
+                        "expenseId" : expenseId,
+                        "oldCategory" : oldCategory,
+                        "newCategory" : newCategory
+                    }
+                );
+
             }
         }
     }
     
 
-    data = {"category" : selected}
+    data = {"Changes" : changes}
+
+    alert(data)
 
     const options = {
         method: "POST",
