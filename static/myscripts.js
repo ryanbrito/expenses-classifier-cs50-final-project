@@ -37,11 +37,11 @@ function submitCategoryChange () {
             }
         }
     }
-    
 
-    data = {"Changes" : changes}
+    titleDash = document.getElementById("titleDash")
+    tableName = titleDash.getAttribute("data-tableName")
 
-    alert(data)
+    data = {"Changes" : [tableName, changes]}
 
     const options = {
         method: "POST",
@@ -52,4 +52,5 @@ function submitCategoryChange () {
     }
 
     fetch("/dashboard/edit", options)
+    location.reload()
 }

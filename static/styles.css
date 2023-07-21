@@ -169,6 +169,11 @@ nav .navbar-brand
         border: 1px solid black;
         margin: auto;
     }
+
+    #submitChangesButton:hover{
+        border: solid rgb(126, 219, 126) 3px;
+    }
+
 }
 
 

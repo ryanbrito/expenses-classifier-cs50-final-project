@@ -6,7 +6,7 @@
 
 {% block main %}
     <head id="titleHead">
-        <p id="titleDash">
+        <p id="titleDash" data-tableName={{tableName}}>
             <b><u>Dashboard: {{tableName}}</u></b>
         </p>
     </head>
@@ -58,8 +58,8 @@
         </table>
 
         <br>
-        <button type="button" class="btn btn-success" onclick="submitCategoryChange()">Submit Changes</button>
-        <br>
+        <button id="submitChangesButton" type="button" class="btn btn-success" onclick="submitCategoryChange()">Submit Changes</button>
+        <br><br>
 
     </div>
 {% endblock %}

@@ -6,7 +6,7 @@ import pandas as pd;
 from matplotlib import pyplot as plt
 from PIL import Image
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, jsonify, request, session
+from flask import Flask, flash, redirect, render_template, jsonify, url_for, request, session
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -321,8 +321,30 @@ def dashboardEdit():
         '''____________User's Expenses Categories edit/change (ACTIVATED IN SELECT OPTIONS)______________'''
         changes = request.get_json()
         if changes:
-            print("\n\n\n\n______________________________________________")
-            print("Changes are \n" + str(changes) + "\n\n\n\n")
+            tableName = changes['Changes'][0]
+            changeRequests = changes['Changes'][1]
+            userDatabase = ("sqlite:///" + "usersDatabases/" + username + ".db")
+            userDatabase = SQL(userDatabase)
+            personal = personalCategories(username)
+
+            # Edits the categories in the desired table as requested by the user:
+            for change in changeRequests:
+                # Checks if it's a valid change of categories:
+                currentCategory = userDatabase.execute(
+                "SELECT category FROM ? WHERE id = ?;",
+                tableName, change['expenseId']
+                )
+                currentCategory = currentCategory[0]['category']
+                if currentCategory != change['newCategory']:
+                    # Changes categories:
+                    userDatabase.execute(
+                        "UPDATE ? SET category = ? WHERE id = ?;",
+                        tableName, change['newCategory'], change['expenseId']
+                        )
+                    
+            return redirect("/dashboard")
+    else:
+        return render_template("apology.html", placeholder="Not a valid Method")
 
 
 @app.route("/delete-user", methods=["GET", "POST"])   
