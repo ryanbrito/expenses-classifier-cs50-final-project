@@ -69,7 +69,7 @@ def login():
 
         # If passed through all checks a session with the user id is created and he/she is redirected to the homepage;
         session["user_id"] = rows[0]["id"]
-        return redirect('/upload')
+        return redirect('/')
 
     else:
         return render_template("login.html")
@@ -325,7 +325,6 @@ def dashboardEdit():
             changeRequests = changes['Changes'][1]
             userDatabase = ("sqlite:///" + "usersDatabases/" + username + ".db")
             userDatabase = SQL(userDatabase)
-            personal = personalCategories(username)
 
             # Edits the categories in the desired table as requested by the user:
             for change in changeRequests:
@@ -341,7 +340,14 @@ def dashboardEdit():
                         "UPDATE ? SET category = ? WHERE id = ?;",
                         tableName, change['newCategory'], change['expenseId']
                         )
-                    
+                    '''_________________Categories adapt to word (new Keyword):__________'''
+                    expense = userDatabase.execute(
+                        "SELECT expense FROM ? WHERE id = ?;",
+                        tableName, change['expenseId']
+                        )
+                    expense = expense[0]['expense']
+                    adaptKeywords(expense, change['newCategory'], username)
+
             return redirect("/dashboard")
     else:
         return render_template("apology.html", placeholder="Not a valid Method")

@@ -101,7 +101,10 @@ def classify(data, username, title):
     )
 
     # Inserts the name/id and the creation date/time of the new table in the user's list.
+    # gmt = pytz.timezone('Etc/GMT+0')
+    # dateTime = datetime.now(gmt)
     dateTime = datetime.now()
+    dateTime = dateTime.isoformat("T")
     usersDb.execute(
         "INSERT INTO ? (dateTime, metric_tables_id) VALUES (?, ?)",
         userSheetList, dateTime, tableName
@@ -321,5 +324,64 @@ def deleteUser():
     usersDb.execute("DELETE FROM users WHERE username = ?;", username)
     database = ("usersDatabases/" + username + ".db")
     os.remove(database)
+
+
+'''_________________Categories adapt to word (new Keyword):__________
+after the user's change of category, the code is going to adapt, meaning that it's not going to mistype the category of any
+similar expense anymore, by adding the words of the expense as keywords of the correct category in the user's personal categories 
+table and removing from any other possible category.'''
+def adaptKeywords(expense, category, username):
+    keywords = getWords(expense)
+    usersDb = ("sqlite:///users.db")
+    usersDb = SQL(usersDb)
+    userCategories = (username + "_categories")
+
+    # If any other category has those new keywords already, they're deleted, making only the correct category have them;
+    personal = personalCategories(username)
+    categories = ''
+    for cate in personal:
+        if cate != 'id' and cate != category:
+            if cate == personal[(len(personal) - 1)]:
+                categories = categories + cate + " "
+            else:
+                categories = categories + cate + ', '
+    sqlText = "SELECT " + categories + " FROM " + userCategories + ";"
+    categoriesTable = usersDb.execute(sqlText)
+    
+    for keyword in keywords:
+        for row in categoriesTable:
+            for key in row:
+                currentKeyword = row[key]
+                if currentKeyword == keyword:
+                    sqlText = ("UPDATE " + userCategories 
+                    + " SET " + key + " = \"NULL\" " 
+                    + "WHERE " + key + " = \"" + currentKeyword + "\";")
+                    usersDb.execute(sqlText)       
+
+    # Gets free places location id in category to store new keywords;
+    sqlText = "SELECT id," + category + " FROM " + userCategories + ";"
+    currentCategory = usersDb.execute(sqlText)
+    nullCategoryPlaces = []
+    for item in currentCategory:
+        keyword = item[category]
+        if keyword == 'NULL' or keyword == '' or keyword == 'Null' or keyword == '\0':
+            nullCategoryPlaces.append(item['id'])
+    
+    nullPlacesLen = len(nullCategoryPlaces)
+    keywordsLen = len(keywords)
+    count = 0
+    for keyword in keywords:
+        # Updates Null places, if there's any, to the new keyword, else, it is inserted in the category;
+        if count <= nullPlacesLen and count <= keywordsLen:
+            sqlText =  ("UPDATE " + userCategories 
+            + " SET " +  category + " = " + ("\"" + keyword + "\"" )
+            + " WHERE id = " + str(nullCategoryPlaces[count]) +";")
+            usersDb.execute(sqlText)
+            count = count + 1
+        else:
+            sqlText = "INSERT INTO " + userCategories + " (" +  category + ")" + " VALUES " +  " (" + keyword + ")" + ";"
+            usersDb.execute(sqlText)
+
+    return
 
 
