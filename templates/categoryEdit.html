@@ -27,10 +27,21 @@
         <div id="deleteButtons">
             {% for keyword in keywords %}
 
-                <button id="keyword" type="submit" class="btn btn-outline-danger" name="deleteKeyword" value={{keyword}} onclick="deleteKeyword(this.value)">
-                    {{keyword}}
-                    <span>&#215</span>
-                </button>
+                {% if keyword|lower == categoryName|lower %}
+
+                    <button id="keyword" type="submit" class="btn btn-outline-danger" name="deleteKeyword" value={{keyword}} onclick="keywordAlert()">
+                        {{keyword}}
+                        <span>&#215</span>
+                    </button>
+
+                {% else %}
+                
+                    <button id="keyword" type="submit" class="btn btn-outline-danger" name="deleteKeyword" value={{keyword}} onclick="deleteKeyword(this.value)">
+                        {{keyword}}
+                        <span>&#215</span>
+                    </button>
+
+                {% endif %}
 
             {% endfor %}
         </div><br>

@@ -122,6 +122,11 @@ nav .navbar-brand
         width: 100%;
     }
 
+    #rotate{
+        margin: 0%;
+        color: white;
+    }
+
     #graph{
         margin: auto;
         margin-left: -6%;
@@ -213,6 +218,7 @@ nav .navbar-brand
     }
 
     #keyword{
+        overflow-wrap: break-word;
         border: solid grey 2px;
         font-weight: bold;
         justify-content: right;
@@ -280,8 +286,128 @@ nav .navbar-brand
     }
 }
 
-
+/*__________TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT____________________________________________________________________________________________________________________*/
 @media screen and (max-width: 1000px){
+
+    #titleHead{
+        margin-top: 10px;
+        margin: auto;
+        font-size: 8vw;
+    }
+
+    #titleP{
+        font-size: 8vw;
+    }
+
+    /*__________________________Login page style___________________________*/
+    #loginBody{
+        /*Image reference: https://www.pexels.com/photo/close-up-photo-of-gray-laptop-577210/ */
+        background-image: url("pexels-lukas-577210.jpg");
+        background-size: 2500px;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 1;
+    }
+
+    #logHead{
+        font-size: 8vw;
+        color:white;
+        margin-bottom: 0;
+    }
+
+    #footer{
+        position: absolute;
+        bottom: 0;
+        left: 42%;
+    }
+
+    #send{
+        margin-top: 2px;
+    }
+
+    input[type=password]{
+        border-radius: 5px;
+        box-sizing: border-box;
+        border: 3px solid #ccc;
+        outline: none;
+    }
+
+    input[type=password]:focus{
+        border: solid green 3px;
+    }
+
+    .input[type=text]{
+        border-radius: 5px;
+        box-sizing: border-box;
+        border: 3px solid #ccc;
+        outline: none;
+    }
+
+    .input[type=text]:focus{
+        border: solid green 3px;
+    }
+
+    #logRegInput{
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
+
+    /*____________________ Loading Screen _____________________*/
+    /*Makes background darker for focus on loading screen*/
+    .Coverlay{
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0,0,0,0.7);
+    }
+
+    .wraped{
+        background-image: linear-gradient(to bottom, rgb(255,255,255) 0%, rgb(255,255,255) 100%), linear-gradient(to bottom, rgb(255,255,255) 0%, rgb(255,255,255) 100%);
+        max-width: 400px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        padding: 20px;
+        background-clip: content-box, padding-box;
+        margin-top: 100px;
+        border: 2px solid black;
+        border-radius: 5px;
+        position: fixed;
+    }
+
+    #loading{
+        width:25px;
+        height:25px;
+    }
+
+    /*___________Dashboard:_____________________*/
+
+    #titleDash{
+        font-size: 8vw;
+        padding-bottom: 0%;
+        margin-bottom: 0%;
+    }
+
+    #deleteButton{
+        width: 100%;
+        margin-bottom: 2px; 
+        border: 2px solid grey;
+    }
+
+    #deleteButton:hover{
+        border: solid green 3px;
+    }
+
+    #deleteDivision{
+        width: 100%;
+    }
+
+    #rotate{
+        margin-bottom: 0%;
+        color: red;
+    }
+
     #graph{
         margin: auto;
         margin-left: -10%;
@@ -289,5 +415,154 @@ nav .navbar-brand
         margin-bottom: 0%;
         width: 120%;
         height: 400px;
+    }
+
+    #dashboardList{
+        width: 90%;
+        margin: auto;
+    }
+
+    #buttonList{
+        text-align: left;
+        width: 100%;
+        margin-bottom: 2px; 
+        border: 2px solid grey;
+    }
+
+    #buttonList:hover{
+        border: solid green 3px;
+    }
+
+    #listDivision{
+        width: 90%;
+    }
+
+    #categorySelection{
+        font-size: 15px;
+        width: 40%;
+        height: 35px;
+    }
+
+    #categorySelection:hover{
+        border: solid green 3px;
+    }
+
+    #categorySelection:focus{
+        border: solid green 3px;
+    }
+
+    #tables{
+        border: 1px solid black;
+        margin: auto;
+    }
+
+    #submitChangesButton:hover{
+        border: solid rgb(126, 219, 126) 3px;
+    }
+
+    /*_____________Category creation/edit Session______________________*/
+
+    #categoriesListTable{
+        width: 90%;
+        margin: auto;
+    }
+
+    #categoryRow{
+        margin: 2px;
+        width: 100%;
+    }
+
+    #deleteCategory{
+        width: 10%;
+        border: solid grey 2px;
+        font-weight: bold;
+    }
+
+    #categoryName{
+        width: 90%;
+        border: solid grey 2px;
+        font-weight: bold;
+        justify-content: right;
+    }
+
+    #createCategory{
+        width: 15%;
+        border: solid grey 2px;
+        font-weight: bold;
+        margin-right: 84.7%; 
+        margin-bottom: 7px;
+    }
+
+    /*______________Edit Category Section_________*/
+    .sectionTitle{
+        font-size: 30px;
+    }
+
+    #keyword{
+        overflow-wrap: break-word;
+        border: solid grey 2px;
+        font-weight: bold;
+        justify-content: right;
+        margin: 3px;
+        color: green;
+        width: 15%;
+    }
+
+    #keyword:hover{
+        color: white;
+    }
+
+    /*____________Category Creation Section______________________*/
+    #newCategoryNameDiv{
+        margin-top: 5px;
+        width: 100%;
+    }
+
+    #newCategoryName{
+        width: 45%;
+        border: 3px solid #ccc;
+        outline: none;
+    }
+
+    #newCategoryName:hover{
+        border: 3px solid green;
+    }
+
+    #newCategoryName:focus{
+        border: 3px solid green;
+    }
+
+    #inputName{
+        border-top-right-radius: 0%;
+        border-bottom-right-radius: 0%;
+    }
+
+    #keywordsAddition{
+        text-align: left;
+    }
+
+    #inform{
+        border: 3px solid yellow;
+        border-radius: 5px;
+        background: rgb(255,250,160);
+        margin: 5px;
+        width: 70%;
+        text-align: left;
+        justify-content: left;
+    }
+
+    #closeInform{
+        margin-left: 67%;
+        width: 70%;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    #closeInform:hover{
+        color: red;
+    }
+
+    #textarea{
+        border: solid grey 1.8px;
     }
 }

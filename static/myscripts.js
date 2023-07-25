@@ -117,3 +117,7 @@ function closeInform(){
     sessionStorage.setItem("closeInform", "closed")
     document.getElementById("inform").style.display = "none";
 }
+
+function keywordAlert(){
+    alert("A keyword with the same name as the category can't be deleted.")
+}
