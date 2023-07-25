@@ -55,14 +55,14 @@ nav .navbar-brand
         border: solid green 3px;
     }
 
-    input[type=text]{
+    .input[type=text]{
         border-radius: 5px;
         box-sizing: border-box;
         border: 3px solid #ccc;
         outline: none;
     }
 
-    input[type=text]:focus{
+    .input[type=text]:focus{
         border: solid green 3px;
     }
 
@@ -174,6 +174,110 @@ nav .navbar-brand
         border: solid rgb(126, 219, 126) 3px;
     }
 
+    /*_____________Category creation/edit Session______________________*/
+
+    #categoriesListTable{
+        width: 90%;
+        margin: auto;
+    }
+
+    #categoryRow{
+        margin: 2px;
+        width: 100%;
+    }
+
+    #deleteCategory{
+        width: 10%;
+        border: solid grey 2px;
+        font-weight: bold;
+    }
+
+    #categoryName{
+        width: 90%;
+        border: solid grey 2px;
+        font-weight: bold;
+        justify-content: right;
+    }
+
+    #createCategory{
+        width: 15%;
+        border: solid grey 2px;
+        font-weight: bold;
+        margin-right: 84.7%; 
+        margin-bottom: 7px;
+    }
+
+    /*______________Edit Category Section_________*/
+    .sectionTitle{
+        font-size: 30px;
+    }
+
+    #keyword{
+        border: solid grey 2px;
+        font-weight: bold;
+        justify-content: right;
+        margin: 3px;
+        color: green;
+        width: 15%;
+    }
+
+    #keyword:hover{
+        color: white;
+    }
+
+    /*____________Category Creation Section______________________*/
+    #newCategoryNameDiv{
+        margin-top: 5px;
+        width: 100%;
+    }
+
+    #newCategoryName{
+        width: 30%;
+        border: 3px solid #ccc;
+        outline: none;
+    }
+
+    #newCategoryName:hover{
+        border: 3px solid green;
+    }
+
+    #newCategoryName:focus{
+        border: 3px solid green;
+    }
+
+    #inputName{
+        border-top-right-radius: 0%;
+        border-bottom-right-radius: 0%;
+    }
+
+    #keywordsAddition{
+        text-align: left;
+    }
+
+    #inform{
+        border: 3px solid yellow;
+        border-radius: 5px;
+        background: rgb(255,250,160);
+        margin: 5px;
+        width: 70%;
+        text-align: left;
+        justify-content: left;
+    }
+
+    #closeInform{
+        margin-left: 67%;
+        width: 70%;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    #closeInform:hover{
+        color: red;
+    }
+
+    #textarea{
+        border: solid grey 1.8px;
+    }
 }
 
 

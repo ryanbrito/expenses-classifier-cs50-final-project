@@ -5,5 +5,32 @@
 {% endblock %}
 
 {% block main %}
+<head id="titleHead">
+    <p id="titleDash">
+        <b><u>Categories:</u></b>
+    </p>
+</head>
+<form method="post" action="/categories">
+    <table id="categoriesListTable">
+
+        <tr>
+            <td>
+                <button id="createCategory" type="submit" class="btn btn-outline-success" name="create" value="category">&nbsp;Create Category</button>
+            </td>
+        </tr>
+
+        {% for i in range(0, personal_categories|length) %}
+            <tr id="categoryRow">
+                <td>
+                    <div id="categoryRow" class="btn-group" role="group" aria-label="Basic example">
+                        <button id="categoryName" type="submit" class="btn btn-outline-success" name="category" value={{personal_categories[i]}}>&nbsp;{{personalEdited[i]}}</button>
+                        <button id="deleteCategory" type="submit" class="btn btn-outline-success" name="delete" value={{personal_categories[i]}}>Delete</button>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %} 
+    </table>
+</form>
+<br>
 
 {% endblock %}

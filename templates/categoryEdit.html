@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Categories
+{% endblock %}
+
+{% block main %}
+<head id="titleHead">
+    <p id="titleDash">
+        <b><u>Categories: {{categoryName}}</u></b>
+    </p>
+</head>
+
+<div>
+
+    <div id="newCategoryNameDiv" class="input-group">
+        <div>
+          <span class="input-group-text" id="inputName" data-Oldcategory={{categoryEdit}}>Change title:</span>
+        </div>
+        <input type="text" id="newCategoryName" placeholder="Enter other title to change the currrent one">
+    </div>
+
+    <p style="text-align: left; color: red; margin-top: 7px;">{{placeholder}}</p>
+
+    <div id="keywordsAddition" class="form-group">
+        <label class="sectionTitle" for="exampleFormControlTextarea1"><b>Keywords:</b></label>
+        <div id="deleteButtons">
+            {% for keyword in keywords %}
+
+                <button id="keyword" type="submit" class="btn btn-outline-danger" name="deleteKeyword" value={{keyword}} onclick="deleteKeyword(this.value)">
+                    {{keyword}}
+                    <span>&#215</span>
+                </button>
+
+            {% endfor %}
+        </div><br>
+
+        <div id="newCategoryNameDiv">
+            <div>
+              <span class="sectionTitle">
+                <b>Add Keywords (separate keywords by commas and/or spaces):</b>
+            </span>
+            </div>
+            <textarea id="textarea" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+        </div>
+
+    </div>
+
+    <button style="margin-top: 7px;" id="createCategory" onclick="submitCategoryEdit()" class="btn btn-outline-success">&nbsp;Update Category</button>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Categories
+{% endblock %}
+
+{% block main %}
+<head id="titleHead">
+    <p id="titleDash">
+        <u><b>Category Creation</b></u>
+    </p><br>
+</head>
+
+{% if placeholder == 0 %}
+    <script>
+        alert("SUCCESS!\nCatgory Created")
+        window.location.replace("/categories");
+    </script>
+{% endif %}
+
+<form action="/categoryCreation" method="POST">
+    <div id="newCategoryNameDiv" class="input-group">
+        <div>
+          <span class="input-group-text" id ="inputName">New Category Name:</span>
+        </div>
+        <input type="text" id="newCategoryName" name="newCategoryName">
+    </div>
+
+    <p style="text-align: left; color: red; margin-top: 7px;">{{placeholder}}</p>
+
+    <div id="keywordsAddition" class="form-group">
+        <label for="exampleFormControlTextarea1">Enter the core keywords related to your new Category (separate keywords by commas and/or spaces):</label>
+
+        <div id="inform">
+            <span id="closeInform" onClick="closeInform()">&#215</span>
+            <p style="margin-left: 4px;">
+                <b><u>Information:</u></b><br>
+                &nbsp; ● Different categories can't have the same keywords; if the entered one 
+                already exists in another category, the standard procedure is to remove the keyword from 
+                it to make only the new class own it;<br>
+                &nbsp; ● The more key words you add, the faster and more precise the program
+                    becomes in categorising the expenses;
+            </p>
+        </div>
+
+        <textarea id="textarea" class="form-control" id="exampleFormControlTextarea1" rows="5" name="keywords"></textarea>
+    </div>
+
+    <button style="margin-top: 7px;" id="createCategory" type="submit" class="btn btn-outline-success">&nbsp;Create Category</button>
+
+</form>
+
+{% endblock %}

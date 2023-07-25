@@ -1,9 +1,4 @@
-import csv
 import datetime
-import pytz
-import subprocess
-import urllib
-import uuid
 import requests
 import json
 import os
@@ -119,6 +114,24 @@ def classify(data, username, title):
             tableName, expense, value, categoryName
             )
 
+
+def makeTitle(name):
+    title = name.title()
+    scapesSpaces = ' \n\r\a\b\f\t\v'
+    title = title.title()
+    title = title.translate(str.maketrans('','', scapesSpaces))
+
+    return title
+
+
+def getUsername():
+    user_id = session["user_id"]
+    username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
+    username = username[0]['username']
+    
+    return username
+
+
 #____________Used by classify to discover from what category each expense is____________
 def categorize(data, categories, table):
     ''' Gets what's the last key word of the last category for posterior check if the word should be searched in dictionary for
@@ -193,7 +206,7 @@ def getWords(phrase):
     for i in range(len(phrase)):
         if phrase[i].isalpha():
             newWord = newWord + phrase[i]
-        if phrase[i] in [" ", "\n", "\0"] and phrase[i-1].isalpha() or i == (len(phrase) - 1):
+        if phrase[i] in [" ", "\n", "\0", ","] and phrase[i-1].isalpha() or i == (len(phrase) - 1):
             # Don't consider prepositions words;
             # List of prepositions or conjunctions found in https://www.englishclub.com/grammar/prepositions-list.php
             # and https://7esl.com/conjunctions-list/ ;
@@ -315,17 +328,6 @@ def deleteSheet(sheet, username):
     return redirect("/dashboard")
 
 
-def deleteUser():
-    user_id = session["user_id"]
-    username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
-    username = username[0]['username']
-    usersDb.execute("DROP TABLE ?;", (username + "_categories"))
-    usersDb.execute("DROP TABLE ?;", (username + "_list"))
-    usersDb.execute("DELETE FROM users WHERE username = ?;", username)
-    database = ("usersDatabases/" + username + ".db")
-    os.remove(database)
-
-
 '''_________________Categories adapt to word (new Keyword):__________
 after the user's change of category, the code is going to adapt, meaning that it's not going to mistype the category of any
 similar expense anymore, by adding the words of the expense as keywords of the correct category in the user's personal categories 
@@ -339,13 +341,20 @@ def adaptKeywords(expense, category, username):
     # If any other category has those new keywords already, they're deleted, making only the correct category have them;
     personal = personalCategories(username)
     categories = ''
+
+    if category == personal[(len(personal) - 1)]:
+        lastCategory = personal[(len(personal) - 2)]
+    else:
+        lastCategory = personal[(len(personal) - 1)]
+
     for cate in personal:
         if cate != 'id' and cate != category:
-            if cate == personal[(len(personal) - 1)]:
+            if cate == lastCategory:
                 categories = categories + cate + " "
             else:
                 categories = categories + cate + ', '
-    sqlText = "SELECT " + categories + " FROM " + userCategories + ";"
+
+    sqlText = "SELECT " + categories + "FROM " + userCategories + ";"
     categoriesTable = usersDb.execute(sqlText)
     
     for keyword in keywords:
@@ -364,7 +373,7 @@ def adaptKeywords(expense, category, username):
     nullCategoryPlaces = []
     for item in currentCategory:
         keyword = item[category]
-        if keyword == 'NULL' or keyword == '' or keyword == 'Null' or keyword == '\0':
+        if keyword in ['NULL','Null','\0', 'None', None]:
             nullCategoryPlaces.append(item['id'])
     
     nullPlacesLen = len(nullCategoryPlaces)
@@ -372,16 +381,53 @@ def adaptKeywords(expense, category, username):
     count = 0
     for keyword in keywords:
         # Updates Null places, if there's any, to the new keyword, else, it is inserted in the category;
-        if count <= nullPlacesLen and count <= keywordsLen:
+        if count <= nullPlacesLen and count <= keywordsLen and nullPlacesLen != 0:
             sqlText =  ("UPDATE " + userCategories 
             + " SET " +  category + " = " + ("\"" + keyword + "\"" )
             + " WHERE id = " + str(nullCategoryPlaces[count]) +";")
             usersDb.execute(sqlText)
             count = count + 1
         else:
-            sqlText = "INSERT INTO " + userCategories + " (" +  category + ")" + " VALUES " +  " (" + keyword + ")" + ";"
+            sqlText = "INSERT INTO " + userCategories + " (" +  category + ")" + " VALUES " +  " (\"" + keyword + "\")" + ";"
+            print(sqlText)
             usersDb.execute(sqlText)
 
     return
 
+
+def categoryCreator(categoryTitle, keywords, username):
+    table = (username + "_categories")
+    usersDb.execute(
+        "ALTER TABLE ? ADD ? TEXT; ",
+        table, categoryTitle
+        )
+    
+    adaptKeywords(keywords, categoryTitle, username)
+
+
+def getKeywords(category, username):
+    userCategories = (username + "_categories")
+
+    sqlText = "SELECT \"" + category + "\" FROM " + userCategories + ";"
+    categoryColumn = usersDb.execute(sqlText)
+    
+    keywords = []
+    
+    for keyword in categoryColumn:
+        current = keyword[category]
+        if current not in ['NULL','Null','\0', 'None', None]:
+            keywords.append(current)
+    
+    return keywords
+
+
+def deleteUser():
+    user_id = session["user_id"]
+    username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
+    username = username[0]['username']
+    usersDb.execute("DROP TABLE ?;", (username + "_categories"))
+    usersDb.execute("DROP TABLE ?;", (username + "_list"))
+    usersDb.execute("DELETE FROM users WHERE username = ?;", username)
+    database = ("usersDatabases/" + username + ".db")
+    os.remove(database)
 

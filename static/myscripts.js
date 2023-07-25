@@ -1,8 +1,19 @@
 document.addEventListener("DOMContentLoaded", function() {
+    inform = document.getElementById("inform")
+    if (inform != null){
+        closeinform = sessionStorage.getItem("closeInform")
+        if (closeinform){
+            inform.style.display = "none";
+        }
+    }
+
     /*Hides overlay of the page*/
     document.getElementById("theOverlay").style.display = "none";
     
 })
+
+
+
 
 // Loading screen appears when upload button is clicked;
 function loadingScreen () {
@@ -41,7 +52,7 @@ function submitCategoryChange () {
     titleDash = document.getElementById("titleDash")
     tableName = titleDash.getAttribute("data-tableName")
 
-    data = {"Changes" : [tableName, changes]}
+    var data = {"Changes" : [tableName, changes]}
 
     const options = {
         method: "POST",
@@ -53,4 +64,56 @@ function submitCategoryChange () {
 
     fetch("/dashboard/edit", options)
     location.reload()
+}
+
+function submitCategoryEdit(){
+    var categoryEdit = document.getElementById("inputName").getAttribute("data-Oldcategory");
+    var newCategoryName = document.getElementById("newCategoryName").value;
+    var newKeywords = document.getElementById("textarea").value;
+
+    var data = [
+        {"categoryEdit": categoryEdit},
+        {"newCategoryName" : newCategoryName},
+        {"newKeywords" : newKeywords}
+    ]
+
+    const options = {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }
+
+    fetch("/categoryEdition", options)
+
+    setTimeout(function(){
+        location.replace("/categories")
+    }, 10)
+}
+
+
+function deleteKeyword(keyword){
+    var oldCategory = document.getElementById("inputName").getAttribute("data-Oldcategory");
+    var data = [{"deleteKeyword" : keyword}, {"oldCategory":oldCategory}]
+    const options = {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }
+
+    fetch("/categoryEdition", options)
+
+    setTimeout(function(){
+        location.reload()
+    }, 1)
+   
+}
+
+
+function closeInform(){
+    sessionStorage.setItem("closeInform", "closed")
+    document.getElementById("inform").style.display = "none";
 }

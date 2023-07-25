@@ -11,8 +11,8 @@
           <div>
             <p id="logHead"><b><u>Login:</u></b></p>
             <form action="/login" method="POST" autocomplete="off">
-              <input id="logRegInput" type="text" name="username" placeholder="Username:"> <br>
-              <input id="logRegInput" type="password" name="password" placeholder="Password:"> <br>
+              <input id="logRegInput" class="input" type="text" name="username" placeholder="Username:"> <br>
+              <input id="logRegInput" class="input" type="password" name="password" placeholder="Password:"> <br>
                 {% if apology %}
                   <p style="color: red;">{{ apology }}</p>
                 {% endif %}

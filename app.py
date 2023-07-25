@@ -140,7 +140,7 @@ def register():
 @login_required
 def upload():
     if request.method == "POST":
-        '''________ Get and check validity_________'''
+        '''________ Gets and checks validity_________'''
         # Gets the name for the desired Expenses Panel:
         name = request.form.get("name")
         # Checks if name is valid:
@@ -183,14 +183,10 @@ def upload():
                 data.append(expense)
 
             # Gets user's sheets list name
-            user_id = session["user_id"]
-            username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
-            username = username[0]['username']
+            username = getUsername()
+
             # Treats the aesthetic format of title to fit correctly in SQL database:
-            title = name.title()
-            scapesSpaces = ' \n\r\a\b\f\t\v'
-            title = title.title()
-            title = title.translate(str.maketrans('','', scapesSpaces))
+            title = makeTitle(name)
 
             userSheetList = (username + "_list")
 
@@ -212,9 +208,7 @@ def upload():
 @login_required
 def dashboard():
     # Gets username
-    user_id = session["user_id"]
-    username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
-    username = username[0]['username']
+    username = getUsername()
         
     if request.method == "POST":
 
@@ -313,9 +307,7 @@ def dashboard():
 @login_required   
 def dashboardEdit():
     # Gets username
-    user_id = session["user_id"]
-    username = usersDb.execute("SELECT username FROM users WHERE id = ?;", user_id)
-    username = username[0]['username']
+    username = getUsername()
         
     if request.method == "POST":
         '''____________User's Expenses Categories edit/change (ACTIVATED IN SELECT OPTIONS)______________'''
@@ -352,6 +344,113 @@ def dashboardEdit():
     else:
         return render_template("apology.html", placeholder="Not a valid Method")
 
+
+@app.route("/categories", methods=["GET", "POST"])   
+@login_required 
+def categories():
+    username = getUsername()
+
+    if request.method == "POST":
+        # Gets posted information:
+        createCategory = request.form.get("create")
+        delete = request.form.get("delete")
+        categoryEdit = request.form.get("category")
+
+        if createCategory:
+            return redirect("/categoryCreation")
+        
+        if delete:
+            userCategories = (username + "_categories")
+            usersDb.execute("ALTER TABLE ? DROP COLUMN ?;", userCategories, delete)
+            return redirect("/categories")
+        
+        if categoryEdit:
+            return redirect(url_for("categoryEdition", categoryEdit=categoryEdit))
+        
+        return redirect("/categories")
+    
+    else:
+        personal= personalCategories(username)
+        personalEdited = treatCategories(personal)
+        return render_template("categories.html", personal_categories=personal, personalEdited=personalEdited)
+    
+
+@app.route("/categoryCreation", methods=["GET", "POST"])   
+@login_required 
+def createCategory():
+    if request.method == "POST":
+        '''________ Gets and checks variables validity_________'''
+        newCategoryName = request.form.get("newCategoryName")
+        keywords = request.form.get("keywords")
+
+        # Treats the aesthetic format of category title to fit correctly in SQL database:
+        categoryTitle = makeTitle(newCategoryName)
+        username = getUsername()
+
+        personal = personalCategories(username)
+
+        if len(categoryTitle) < 2 or categoryTitle in personal or categoryTitle in ["id", "ID", "Id", "iD"]:
+            return render_template("categoryCreation.html", placeholder="A bigger name is necessary or category already exists.")
+        
+        keywordsList = getWords(keywords)
+        if len(keywordsList) < 1:
+            return render_template("categoryCreation.html", placeholder="Please, enter at least one keyword.")
+        
+        categoryCreator(categoryTitle, keywords, username)
+
+        return render_template("categoryCreation.html", placeholder=0)
+
+    else:
+        return render_template("categoryCreation.html")
+
+
+
+@app.route("/categoryEdition", methods=["GET", "POST"])   
+@login_required 
+def categoryEdition():
+    username = getUsername()
+
+    if request.method == "POST":
+        categoryEdit = request.get_json()
+        userCategories = username + "_categories" 
+
+        # Deletes keywords if the user selected any to delete;
+        if len(categoryEdit) == 2:
+            deleteKeyword = categoryEdit[0]['deleteKeyword']
+            oldCategory = categoryEdit[1]['oldCategory']
+            sqlText = "UPDATE " + userCategories + " SET " + oldCategory + " = \"NULL\" WHERE "  + oldCategory + " = \"" + deleteKeyword + "\";"
+            usersDb.execute(sqlText)
+            return redirect(url_for("categories"))
+
+        else:
+            categoryOldName = categoryEdit[0]['categoryEdit']
+            newCategoryName = categoryEdit[1]['newCategoryName']
+            category = categoryOldName
+        
+        newKeywords = categoryEdit[2]['newKeywords']
+
+        if len(newCategoryName) > 2 and newCategoryName not in ['NULL','Null','\0', 'None', None]:
+            newCategoryName = makeTitle(newCategoryName)
+            if ' ' not in newCategoryName:
+                sqlText = ("ALTER TABLE " + userCategories + " RENAME COLUMN " + categoryOldName + " TO " + newCategoryName + ";")
+                usersDb.execute(sqlText)
+                category = newCategoryName
+
+        if newKeywords and len(newKeywords) > 2 and newKeywords not in ['NULL','Null','\0', 'None', None]:
+            adaptKeywords(newKeywords, category, username)
+
+        return redirect(url_for("categories"))
+    
+    else:
+        categoryEdit = request.args.get("categoryEdit")
+        if categoryEdit:
+            categoryTreated = treatCategories([categoryEdit])[0]
+            keywords = getKeywords(categoryEdit, username)
+        else:
+            return redirect("/categories")
+
+        return render_template("categoryEdit.html", categoryEdit=categoryEdit,categoryName=categoryTreated, keywords=keywords)
+        
 
 @app.route("/delete-user", methods=["GET", "POST"])   
 @login_required
