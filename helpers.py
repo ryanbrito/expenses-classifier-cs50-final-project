@@ -108,7 +108,11 @@ def classify(data, username, title):
     for category in categorized:
         categoryName = list(category.keys())[0]
         expense = category[categoryName][0]
-        value = round((category[categoryName][1]), 2)
+        value = str(category[categoryName][1])
+        if "$" in value:
+            value = value.replace("$","")
+        value = float(value)
+        value = round(value, 2)
         database.execute(
             "INSERT INTO ? (expense, value, category) VALUES (?, ?, ?)",
             tableName, expense, value, categoryName
