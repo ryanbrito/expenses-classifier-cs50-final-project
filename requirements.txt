@@ -2,3 +2,9 @@ cs50
 Flask
 Flask-Session
 requests
+pandas
+matplotlib
+python-freeDictionaryAPI
+werkzeug
+datetime
+Pillow
