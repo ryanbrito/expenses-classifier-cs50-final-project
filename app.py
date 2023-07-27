@@ -5,7 +5,7 @@ import pandas as pd;
 # Used matplotlib to build the basic expense graphs for the user's dashboard.
 from matplotlib import pyplot as plt
 from PIL import Image
-from cs50 import SQL
+from cs50 import SQL # Used to pass commands to SQL
 from flask import Flask, flash, redirect, render_template, jsonify, url_for, request, session
 from flask_session import Session
 from tempfile import mkdtemp

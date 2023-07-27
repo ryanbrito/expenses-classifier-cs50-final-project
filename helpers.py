@@ -3,7 +3,7 @@ import requests
 import json
 import os
 from datetime import datetime
-from cs50 import SQL
+from cs50 import SQL # Used to pass commands to SQL
 from flask import redirect, render_template, session
 from functools import wraps
 from freedictionaryapi.clients.sync_client import DictionaryApiClient
