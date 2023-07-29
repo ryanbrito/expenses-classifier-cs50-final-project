@@ -36,7 +36,7 @@
 # Expenses Panel - CS50 Final Project
 ## Video Demo: [ Expenses Panel - CS50x 2023 - Final Project. ](https://www.youtube.com/watch?v=-oqbUjXRCGQ)
 ## Description:
-Expenses Panel is a web application developed to get your expense sheets (maybe your bank extract or your personal monthly expenses sheet), automatically classify these expenses into main budget categories (or your own created ones), and build a dashboard. As a result, it helps the user understand, organize, and plan their expenses more effectively.
+Expenses Panel is a basic web application developed to get your expense sheets (maybe your bank extract or your personal monthly expenses sheet), automatically classify these expenses into main budget categories (or your own created ones), and build a dashboard. As a result, it helps the user understand, organize, and plan their expenses more effectively.
 
 ### Features:
 * Automatically classify expenses into budget categories;
@@ -58,7 +58,7 @@ python app.py
 * More usage information in the video[ Expenses Panel - CS50x 2023 - Final Project. ](https://www.youtube.com/watch?v=-oqbUjXRCGQ);
 
 ## How it works:
-### This diagrams shows how the application's primary function - categorize() - works and automatically classifies each expense.
+### These diagrams shows how the application's primary function - categorize() - works and automatically classifies each expense.
 * Imagine an expense in your sheet that looks like "Gasoline | $200.00".<br>
 "DIAGRAM 1"
 

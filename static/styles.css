@@ -284,6 +284,11 @@ nav .navbar-brand
     #textarea{
         border: solid grey 1.8px;
     }
+
+    #videoHomepage{
+        width: 80%;
+        height: 500px;
+    }
 }
 
 /*__________TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT____________________________________________________________________________________________________________________*/
@@ -564,5 +569,10 @@ nav .navbar-brand
 
     #textarea{
         border: solid grey 1.8px;
+    }
+
+    #videoHomepage{
+        width: 90%;
+        height: 200px;
     }
 }
