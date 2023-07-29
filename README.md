@@ -59,10 +59,10 @@ python app.py
 
 ## How it works:
 ### This diagrams shows how the application's primary function - categorize() - works and automatically classifies each expense.
-* Imagine that there's an expense in your sheet that looks something like this: "Gasoline | $200.00"<br>
+* Imagine an expense in your sheet that looks like "Gasoline | $200.00".<br>
 "DIAGRAM 1"
 
-* If the application cannot found any word of the expense title in the categories table, the dictionary API will be used. Take the following example where the application iterated through the whole table and could not categorize the expense "Peanut Butter | $10.00", so the API was used.<br>
+* The application will use dictionary API  if it can't find any word of the expense title in the categories table. Take the following example where the application iterated through the whole table and could not categorize the expense "Peanut Butter | $10.00".<br>
 "DIAGRAM 2"
 
 ## Files and Folders:
