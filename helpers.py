@@ -76,14 +76,16 @@ def createDefaultTable():
 ''' Classify all the expenses in different budget categories and adds the categorized sheet to the database'''
 # Main Budget Categories: https://www.quicken.com/blog/budget-categories/ ;
 def classify(data, username, title):
+    # Identify User's tables
+    userCategoriesTableName = (username + "_categories")
+    userSheetsTableName = (username + "_list")
+
     '''_____________Gets data_______________'''
     # Gets the user's budget categories;
-    table = (username + "_categories")
-    categories = usersDb.execute("SELECT * FROM ?;", table)
-    userSheetList = (username + "_list")
+    categories = usersDb.execute("SELECT * FROM ?;", userCategoriesTableName)
 
     """_____ANALYZE AND CATEGORIZE EXPENSES BASED ON THE WORDS OF EACH EXPENSE:______"""
-    categorized = categorize(data, categories, table)
+    categorized = categorize(data, categories, userCategoriesTableName)
 
     '''___________Adds the categorized items to the database in a new table__________;'''
     # Creates a new table to store this new expense classification "sheet"
@@ -102,7 +104,7 @@ def classify(data, username, title):
     dateTime = dateTime.isoformat("T")
     usersDb.execute(
         "INSERT INTO ? (dateTime, metric_tables_id) VALUES (?, ?)",
-        userSheetList, dateTime, tableName
+        userSheetsTableName, dateTime, tableName
     )
 
     for category in categorized:

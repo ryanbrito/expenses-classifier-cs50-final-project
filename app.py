@@ -158,48 +158,50 @@ def upload():
         filename = secure_filename(file.filename)
         path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 
-        # Save file in its proper place;
-        file.save(path)
-
         # Check if the file is an excel (xlsx) type or not:
         # Learned to get file extensions in: https://www.digitalocean.com/community/tutorials/get-file-extension-in-python;
         fileType = os.path.splitext(filename)
-        if not filename or fileType[1] != ".xlsx":
+        if not filename or fileType[len(fileType) - 1] != ".xlsx":
             return render_template("upload.html", placeholder=1)
-        
-        else:
-            # Gets the data of the file and pass it to the data list:
-            dataframe = pd.read_excel(("uploads/" + filename))
-            dataframe = dataframe[dataframe.columns.drop(list(dataframe.filter(regex='Unnamed:')))].to_dict('split')
-            data.append(dataframe["columns"])
 
+        # Save file in its proper place;
+        file.save(path)
+    
+        # Gets the data of the file and pass it to the data list:
+        dataframe = pd.read_excel(("uploads/" + filename))
+        dataframe = dataframe[dataframe.columns.drop(list(dataframe.filter(regex='Unnamed:')))].to_dict('split')
+        data.append(dataframe["columns"])
+
+        # Checks if it's a valid sheet for analysis
+        if len(dataframe["columns"]) != 2:
+            return render_template("upload.html", placeholder=1)
             # Deletes file after being used:
             os.remove(path)
 
-            # Checks if it's a valid sheet for analysis
-            if len(dataframe["columns"]) != 2:
-                return render_template("upload.html", placeholder=1)
-            for expense in dataframe["data"]:
-                data.append(expense)
+        # Deletes file after being used:
+        os.remove(path)
 
-            # Gets user's sheets list name
-            username = getUsername()
+        for expense in dataframe["data"]:
+            data.append(expense)
 
-            # Treats the aesthetic format of title to fit correctly in SQL database:
-            title = makeTitle(name)
+        # Gets user's sheets list name
+        username = getUsername()
 
-            userSheetList = (username + "_list")
+        # Treats the aesthetic format of title to fit correctly in SQL database:
+        title = makeTitle(name)
 
-            # Checks if there's no table with the same name that the user wants:
-            listOfNames = usersDb.execute("SELECT metric_tables_id FROM ?;", userSheetList)
-            for item in listOfNames:
-                if item["metric_tables_id"] == title:
-                    return render_template("upload.html", placeholder=2)
-                
-            '''__________Process data_________'''
-            # Uses helper function to classify each expense from the data;
-            classify(data, username, title)
-            return redirect("/dashboard")
+        userSheetList = (username + "_list")
+
+        # Checks if there's no table with the same name that the user wants:
+        listOfNames = usersDb.execute("SELECT metric_tables_id FROM ?;", userSheetList)
+        for item in listOfNames:
+            if item["metric_tables_id"] == title:
+                return render_template("upload.html", placeholder=2)
+            
+        '''__________Process data_________'''
+        # Uses helper function to classify each expense from the data;
+        classify(data, username, title)
+        return redirect("/dashboard")
     else:
         return render_template("upload.html")
 

@@ -58,7 +58,7 @@ python app.py
 * More usage information in the video[ Expenses Panel - CS50x 2023 - Final Project. ](https://www.youtube.com/watch?v=-oqbUjXRCGQ);
 
 ## How it works:
-### These diagrams shows how the application's primary function - categorize() - works and automatically classifies each expense.
+### These diagram videos shows how the application's primary function - categorize() - works and automatically classifies each expense.
 * Imagine an expense in your sheet that looks like "Gasoline | $200.00".<br>
 "DIAGRAM 1"
 
