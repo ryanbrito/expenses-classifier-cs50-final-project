@@ -33,8 +33,8 @@
     </a>
 </div>
 
-# Expenses Panel
-## Video Demo: [videotest](testtest)
+# Expenses Panel - CS50 Final Project
+## Video Demo: [ Expenses Panel - CS50x 2023 - Final Project. ](https://www.youtube.com/watch?v=-oqbUjXRCGQ)
 ## Description:
 Expenses Panel is a web application developed to get your expense sheets (maybe your bank extract or your personal monthly expenses sheet), automatically classify these expenses into main budget categories (or your own created ones), and build a dashboard. As a result, it helps the user understand, organize, and plan their expenses more effectively.
 
@@ -55,11 +55,15 @@ python app.py
 
 ## How to Use the Project:
 * Check the folder "Expenses sheet examples" for rapid examples of expenses sheets that you can upload to the application;
-* More usage information in the video [videotest](testtest);
+* More usage information in the video[ Expenses Panel - CS50x 2023 - Final Project. ](https://www.youtube.com/watch?v=-oqbUjXRCGQ);
 
 ## How it works:
-### This diagram shows how the application's primary function - categorize() - works and automatically classifies each expense.
+### This diagrams shows how the application's primary function - categorize() - works and automatically classifies each expense.
+* Imagine that there's an expense in your sheet that looks something like this: "Gasoline | $200.00"<br>
+"DIAGRAM 1"
 
+* If the application cannot found any word of the expense title in the categories table, the dictionary API will be used. Take the following example where the application iterated through the whole table and could not categorize the expense "Peanut Butter | $10.00", so the API was used.<br>
+"DIAGRAM 2"
 
 ## Files and Folders:
 ### app.py:
