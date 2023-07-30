@@ -66,8 +66,12 @@ https://github.com/RyanBrito/expenses-panel-cs50-final-project/assets/60003430/7
 
 
 
-* The application will use dictionary API  if it can't find any word of the expense title in the categories table. Take the following example where the application iterated through the whole table and could not categorize the expense "Peanut Butter | $10.00".<br>
-"DIAGRAM 2"
+* The application will use a dictionary API  if it can't find any word of the expense title in the categories table. Take the following example where the application iterated through the whole table and could not categorize the expense "Peanut Butter | $10.00".<br>
+
+
+https://github.com/RyanBrito/expenses-classifier-cs50-final-project/assets/60003430/e2a54267-8b92-49a5-b3ff-dd3ec03ea7b8
+
+
 
 ## Files and Folders:
 ### app.py:
