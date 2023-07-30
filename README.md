@@ -60,8 +60,11 @@ python app.py
 ## How it works:
 ### These diagram videos shows how the application's primary function - categorize() - works and automatically classifies each expense.
 * Imagine an expense in your sheet that looks like "Gasoline | $200.00".<br>
-<video src="README/diagram1.mp4" controls="controls">
-</video>
+
+
+https://github.com/RyanBrito/expenses-panel-cs50-final-project/assets/60003430/723f2bb6-0fec-45f1-bf3a-ad7101663702
+
+
 
 * The application will use dictionary API  if it can't find any word of the expense title in the categories table. Take the following example where the application iterated through the whole table and could not categorize the expense "Peanut Butter | $10.00".<br>
 "DIAGRAM 2"
