@@ -109,17 +109,8 @@ nav .navbar-brand
     }
 
     #deleteButton{
-        width: 100%;
-        margin-bottom: 2px; 
-        border: 2px solid grey;
-    }
-
-    #deleteButton:hover{
-        border: solid green 3px;
-    }
-
-    #deleteDivision{
-        width: 100%;
+        margin-left: 0.5%;
+        margin-bottom: 0.5%; 
     }
 
     #rotate{
@@ -137,23 +128,20 @@ nav .navbar-brand
     }
 
     #dashboardList{
-        width: 90%;
+        width: 100%;
+        text-align: center;
         margin: auto;
+        margin-left: 18%;
     }
 
     #buttonList{
         text-align: left;
-        width: 100%;
-        margin-bottom: 2px; 
-        border: 2px solid grey;
-    }
-
-    #buttonList:hover{
-        border: solid green 3px;
+        width: 58%;
+        margin-bottom: 0.5%; 
     }
 
     #listDivision{
-        width: 90%;
+        width: 50%;
     }
 
     #categorySelection{
@@ -395,17 +383,8 @@ nav .navbar-brand
     }
 
     #deleteButton{
-        width: 100%;
-        margin-bottom: 2px; 
-        border: 2px solid grey;
-    }
-
-    #deleteButton:hover{
-        border: solid green 3px;
-    }
-
-    #deleteDivision{
-        width: 100%;
+        margin-left: 1%;
+        margin-bottom: 1%; 
     }
 
     #rotate{
@@ -423,23 +402,16 @@ nav .navbar-brand
     }
 
     #dashboardList{
-        width: 90%;
+        width: 100%;
+        text-align: center;
         margin: auto;
+        margin-left: 5%;
     }
 
     #buttonList{
         text-align: left;
-        width: 100%;
-        margin-bottom: 2px; 
-        border: 2px solid grey;
-    }
-
-    #buttonList:hover{
-        border: solid green 3px;
-    }
-
-    #listDivision{
-        width: 90%;
+        width: 70%;
+        margin-bottom: 1%; 
     }
 
     #categorySelection{
