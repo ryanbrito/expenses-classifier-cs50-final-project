@@ -276,6 +276,8 @@ nav .navbar-brand
     #videoHomepage{
         width: 80%;
         height: 500px;
+        border: solid black 2px;
+        border-radius: 5px;
     }
 }
 
